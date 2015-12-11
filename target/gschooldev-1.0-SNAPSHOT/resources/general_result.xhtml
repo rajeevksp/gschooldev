@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" >
+     
+     
+             <div class="panel panel-default"  >
+                        <div class="panel-heading">
+                            <h2 class="panel-title">#{searchResults.school_name}</h2>
+                            <h5><i class="fa fa-map-marker"></i> <span class="loc"> #{searchResults.location}</span>,  #{searchResults.city}</h5>
+                            
+                            <div class="schoolRating">
+                            <a class="btn btn-warning btn-block btn-fab btn-raised mdi-action-grade" href="javascript:void(0)"></a>
+                            <p>#{searchResults.rating}</p>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                               
+                                      <div class="row">
+                                      <div class="col-sm-3 col-xs-3">
+                                          <img src="#{searchResults.school_logo}" />
+                                      </div>
+                                     
+                                      <div class="col-sm-9 col-xs-9">
+                                         <div class="row">
+                                             <div class="col-xs-3">Board: <b>#{searchResults.board}</b></div>
+                                             <div class="col-xs-6">Medium: <b>#{searchResults.medium}</b></div>
+                                             <div class="col-xs-3">Est. <b>#{searchResults.est_year}</b></div>
+                                           
+                                         </div>
+                                          <div class="row">
+                                              <div class="col-xs-3"><i class="fa fa-phone"></i> #{searchResults.school_contact}</div>
+                                              <div class="col-xs-6"><i class="fa fa-envelope"></i> #{searchResults.school_email}</div>
+                                              <div class="col-xs-3"><i class="fa fa-link "></i> <a href="http://#{searchResults.school_website}"> #{searchResults.school_website}</a></div>
+                                           
+                                         </div>
+                                          
+                                         <div class="row schoolInfo">
+                                         
+                                         <div class="col-xs-12">
+                                             #{searchResults.description}
+                                         </div>
+                                         </div>
+                                         
+                                      <div class="row">
+                                       <div class="col-xs-12 featuresList">
+                                         <span class="ficon" title="Co-Education">
+                                         <i class="fa fa-2x fa-male text-success" ></i>
+                                         <i class="fa fa-2x fa-female text-success" ></i>
+                                         </span>
+                                          <span class="ficon" title="Internet">
+                                         <i class="fa fa-2x fa-wifi"></i>
+                                         </span>
+                                          <span class="ficon" title="Transportation">
+                                         <i class="fa fa-2x fa-bus text-success"></i>
+                                         </span>
+                                          <span class="ficon" title="Library">
+                                         <i class="fa fa-2x fa-book text-success"></i>
+                                         </span>
+                                          <span class="ficon" title="Computer Lab">
+                                         <i class="fa fa-2x fa-desktop text-success"></i>
+                                         </span>
+                                          <span class="ficon" title="Play Ground">
+                                         <i class="fa fa-2x fa-futbol-o text-success"></i>
+                                         </span>
+                                         <span class="ficon" title="Medical Assistance">
+                                         <i class="fa fa-2x fa-medkit" ></i>
+                                         </span>
+                                         <span class="ficon" title="Pre-School">
+                                         <i class="fa fa-2x fa-child"></i>
+                                         </span>
+                                         <span class="ficon" title="Hostel">
+                                         <i class="fa fa-2x fa-bed"></i>
+                                         </span>
+                                       </div>
+                                       
+                                      </div>
+                                      </div>
+                                      </div>
+                                      
+                                      
+                        </div>
+                    </div>
+ 
+		
+</ui:composition>   

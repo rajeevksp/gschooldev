@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" >
+    
+    
+    <ui:repeat id="list" var="product" value="#{bean.product_list}">
+        <p>
+        <h:outputText value="#{product.title}"/> 
+        &#160;&#160;&#160;
+        <h:outputText  value="#{product.price}"/>
+        </p>
+         <br />
+    </ui:repeat>    
+</ui:composition>

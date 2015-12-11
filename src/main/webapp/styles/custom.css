@@ -1,0 +1,440 @@
+@charset "utf-8";
+/* CSS Document */
+
+.basic_search{
+  width:65%;
+  margin:30px auto;
+  border:1px solid #eee;
+  padding:20px 10px;
+   background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+
+}
+
+.wrapper > header .navbar-default{
+	top:0px;
+}
+.form-control-wrapper .floating-label {
+  opacity: 1;
+}
+
+.basic_search input.form-control{
+	color:#fff;
+	height:44px;
+}
+.gotoLink{
+	cursor:pointer;
+}
+.searchForm{
+	background:#fff;
+	
+}
+
+.searchForm .shortcode_anchor{
+	  
+}
+.personalized_search{
+	width:50%;
+	margin:2px auto;
+	padding-bottom:20px;
+	text-align:center;}
+.personalized_search h2,.personalized_search p{
+	margin:10px 0px;
+}
+.personalized_search h2,.personalized_search a,.personalized_search p{
+	text-align:center;
+}
+.personalized_search a.btn{
+	padding:10px 60px;
+}
+.personalized_search input.form-control{
+background-image: linear-gradient(#00b7c3, #00b7c3), linear-gradient(#999, #999);
+}
+
+.personalized_search .form-control::-webkit-input-placeholder,.personalized_search .form-control::-moz-placeholder,.personalized_search .form-control:-ms-input-placeholder{color:#777}
+
+.home_block_2 .personalized_search{
+	 width:50%;
+	 text-align:left;
+}
+#personalized_search2{
+	display:none;
+}
+#personalized_search2 .bs-component{
+	text-align:left;
+}
+ .check{
+	padding-left:0px;
+	padding-right:0px;
+}
+
+#personalized_search2 .email,#personalized_search2 .mobile,#personalized_search2 .check{
+	padding-left:0;
+	padding-right:0;
+}
+
+ 
+.rangeTxtLow{
+	color:#3BBCF6;
+font-weight:400;
+	font-size:16px;
+	padding:8px;
+	text-align:center;
+}
+
+.rangeTxtHigh{
+	color:#F55549;
+	font-size:16px;
+	padding:8px;
+	text-align:center;
+	font-weight:400;
+}
+.slider{
+	background:none;
+}
+.slider.slider-horizontal {
+    height:60px;
+    width: 70%;
+}
+.slider-track-low, .slider-track-high {
+    background: #999 none repeat scroll 0 0;
+}
+
+.subscribe input.form-control:focus, .subscribe input.form-control:active {
+    border-color: none;
+}
+
+.contact .form-group .form-control:focus,.contact .form-group-default .form-control:focus{background-image:linear-gradient(#666,#666),linear-gradient(#d2d2d2,#d2d2d2)}
+
+.subscribe .form-group .form-control:focus,.subscribe .form-group-default .form-control:focus{background-image:linear-gradient(#666,#666),linear-gradient(#d2d2d2,#d2d2d2)}
+
+
+.resultsFee label{
+	font-size:12px;
+	padding:12px 0px 12px 8px;
+}
+.schoolResults, .mapViewSchools {
+	background: rgba(0, 0, 0, 0) url("../images/testimonials.jpg") repeat fixed center center;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+.schoolResults .col-sm-8 .col-md-8{
+	padding:0px;
+}
+.schoolResults .panel{
+	 
+	text-align:left;
+	color:#333;
+	
+	
+
+}
+ .panel-heading{
+	border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    padding: 10px 15px 4px;
+}
+ .panel-body{
+	padding-top:10px;
+}
+
+.adBox{
+	height:320px;
+	border:1px solid #888;
+	margin-bottom:12px;
+}
+.school{
+	
+}
+.resultPagination .breadcrumb{
+	margin:2px auto;
+}
+.resultPagination .breadcrumb li ,.resultPagination .breadcrumb li a{
+	font-size: 12px;
+}
+
+  .btn-default:not(.btn-link):not(.btn-flat){
+	background:#f5f5f5;
+}
+
+.schoolResults .panel-heading{
+	position:relative;
+}
+
+.schoolResults .panel-heading .schoolRating{
+	position:absolute;
+	top:10px;
+	right:10px;
+	 
+}
+.schoolRating a{
+	color:#FF6;
+}
+.schoolRating p{
+	text-align:center;
+	margin:0px auto;
+	color:#fff;
+}
+
+.schoolRating span .dark{
+ 
+}
+
+.panel-heading h2{
+	font-size:26px;
+	font-weight:400;	 
+	margin:10px 0px;
+	text-align:left;
+	margin-bottom:none;
+ 
+}
+
+.panel-warning .panel-heading h2{
+	color:#fff;
+}
+
+.panel-default > .panel-heading{
+	background:#f5f5f5;
+}
+.panel-heading h5{
+	 
+	font-weight:200;
+	
+}
+.panel-default .panel-heading h2{
+	color:#111;
+}
+
+.panel-heading .loc{
+	font-weight:400;
+}
+
+.panel-heading .enquire{
+	text-align:center;
+}
+.schoolInfo{
+	padding:8px  auto;
+	font-size:90%;
+	color:#666;
+}
+.featuresList {
+	padding:10px auto;
+	margin-top:10px;
+	
+}
+.featuresList .ficon{
+	margin:8px;
+}
+
+.similarSchools .panel-body img{
+	width:100%;
+	height:auto;
+}
+.similarSchools .panel-footer h2{
+	font-size:18px;
+	font-weight:400;
+	
+}
+.similarSchools .panel-footer h5{
+	font-size:14px;
+	font-weight:200;
+}
+.featuredSchools .panel-footer{
+	background:#00b7c3 ;
+	color:#fff;
+}
+.mapViewSchools{
+	color:#333	;text-align:left;;
+}
+.mapViewSchools .panel-heading h2{
+	font-size:14px;
+	font-weight:400;
+}
+.mapViewSchools .panel-heading h5{
+	font-size:10px;
+	font-weight:200;
+
+}
+.mapScroll{
+	 height:90%;
+	overflow:auto;
+}
+
+.schoolBcg{
+	 background: url(../Photos/pencil-sharpener-838605_1920.jpg) no-repeat center;
+	 border-bottom:1px solid #666;
+}
+.schoolProfileHead{
+	 padding-top:20px;
+	 padding-bottom:20px;
+	 color:#fff;
+	
+}
+.schoolProfileHead .schoolInfo{
+	color:#eee;
+}
+.schoolProfilePicHolder{
+	position:relative;
+	
+}
+.schoolProfilePic{
+/*	position: relative;
+	
+	bottom: -40px;
+	left:0px;*/
+	 border:1px solid #fff;
+	 background:#fff;
+	 width:180px;
+	 height:180px;
+	 line-height:180px;
+	 margin:2px auto;
+	text-align:center;
+	
+}
+.schoolProfilePic img{
+	 width:100%;
+	 height:auto;
+	vertical-align: middle;
+  margin-bottom:0.25em;
+}
+.schoolProfileInfo{
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.schoolProfileRating{
+	
+}
+
+.schoolProfileRating .rating {
+	font-size:12px;
+	text-align:center;
+	color:#666;
+}
+.schoolProfileRating .rating h2{
+	font-size:250%;
+	margin:2px auto;
+	font-weight:600;
+	color:#333;
+	
+}
+
+.schoolProfileRating .userReviews{
+	padding-top:10px;
+	padding-left:8%;
+	
+}
+
+.shortcode_sidebar{
+	position:static;
+	background:#fff;
+	color:#333;
+	margin-top:18px;
+
+}
+.shortcode_sidebar h4{
+}
+.shortcode_sidebar li{
+	 
+	text-align:left;
+	line-height:44px;
+	border-bottom:1px solid #efefef;
+	
+}
+.shortcode_sidebar  a::before{
+	content:normal;
+}
+.shortcode_sidebar li:hover a{
+	color:#00b7c3;
+}
+
+.shortcode_sidebar li:hover{
+	background:#efefef;
+	border-right:3px solid #00b7c3;
+	
+}
+
+.schoolProfileLeftContent{
+	background:#fff;
+	
+	color:#333;
+	padding-bottom:10px;
+	 
+}
+.schoolProfileLeftContent h5{
+	text-align:left;
+	padding:12px 20px;
+	line-height:16px;
+	font-size:14px;
+	color:#444;
+	background:#ccc;
+	font-weight:200;
+	margin:0px;
+	
+}
+.schoolProfileLeftContent h2{
+   margin:10px auto;
+   font-size:18px;
+	 
+}
+.schoolProfileSummary{
+		margin-top:18px;
+}
+.schoolProfileSummary h3{
+	margin:15px;
+}
+.schoolProfileSummary .nav-tabs{
+	background:none;	
+}
+
+.schoolProfileSummary .nav-tabs > li a h4{
+	color:#333;
+}
+
+.schoolProfileSummary .nav-tabs > li:hover{
+	background:#999;
+}
+.schoolProfileSummary .nav-tabs > li a:hover h4{
+	color:#fff;
+}
+.schoolProfileSummary .nav-tabs li.active{
+  background:#00b7c3;
+  color:#eee;	
+}
+.schoolProfileSummary .nav-tabs > li i {
+ color:#999;	
+}
+.schoolProfileSummary .nav-tabs > li.active a h4, .schoolProfileSummary .nav-tabs > li.active i {
+ color:#fff;	
+}
+
+.schoolProfileSummary .quickFacts{
+	margin:10px;
+}
+.schoolProfileSummary .quickFacts li{
+	 list-style-type:disc;
+	 margin-left:10px;
+}
+
+
+
+.reviewForm .personalized_search{
+	margin-left:10px;
+	text-align:left;
+}
+.facilities h3{
+  font-size:18px;
+  margin:10px;	
+}
+
+.facilitiesSub{
+	font-size:16px;
+	font-weight:400;
+	text-transform:uppercase;
+}
+.facilitiesSub span{
+	font-size:12px;
+	text-transform:capitalize;
+	
+}
