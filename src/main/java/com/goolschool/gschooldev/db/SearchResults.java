@@ -18,9 +18,10 @@ import javax.inject.Named;
 public class SearchResults {
     
     private String school_code;
-    private String school_name = "Test School Name";
-    private String location = "here";
-    private String city = "Hyderabad";
+    private String school_name ;
+    private int school_type;
+    private String location ;
+    private String city ;
     private String est_year;
     private String medium;
     private String rating;
@@ -31,6 +32,14 @@ public class SearchResults {
     private String school_contact;
     private String school_email;
     private String school_website;
+
+    public int getSchool_type() {
+        return school_type;
+    }
+
+    public void setSchool_type(int school_type) {
+        this.school_type = school_type;
+    }
 
     public String getSchool_contact() {
         return school_contact;

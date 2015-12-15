@@ -8,7 +8,7 @@
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
         xmlns:jsf="http://xmlns.jcp.org/jsf"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        xmlns:ui="http://java.sun.com/jsf/facelets">
 <!--<![endif]-->
 <head jsf:id="head">
 <meta charset="utf-8" />
@@ -402,76 +402,218 @@
                  
                  
                  <ui:param name="search_loc" value="#{basicSearch.as_values_location}" />
-                 <ui:repeat value="#{schools.school}" var="searchResults">
+                 <ui:repeat value="#{schools.school}" var="school">
                      
                      <div class="panel panel-primary"  >
                         <div class="panel-heading">
-                            <h2 class="panel-title">#{searchResults.school_name}</h2>
-                            <h5><i class="fa fa-map-marker"></i> <span class="loc"> #{searchResults.location}</span>,  #{searchResults.city}</h5>
+                            <h2 class="panel-title"><h:outputText value="#{school.school_name}" /></h2>
+                            <h5><i class="fa fa-map-marker"></i> <span class="loc"> #{school.location}</span>,  #{school.city}</h5>
                             
                             <div class="schoolRating">
                             <a class="btn btn-warning btn-block btn-fab btn-raised mdi-action-grade" href="javascript:void(0)"></a>
-                            <p>#{searchResults.rating}</p>
+                            <p>#{school.rating}</p>
                             </div>
                         </div>
                         <div class="panel-body">
                                
                                       <div class="row">
                                       <div class="col-sm-3 col-xs-3">
-                                          <img src="#{searchResults.school_logo}" />
+                                          <img src="#{school.school_logo}" />
                                       </div>
                                      
                                       <div class="col-sm-9 col-xs-9">
                                          <div class="row">
-                                             <div class="col-xs-3">Board: <b>#{searchResults.board}</b></div>
-                                             <div class="col-xs-6">Medium: <b>#{searchResults.medium}</b></div>
-                                             <div class="col-xs-3">Est. <b>#{searchResults.est_year}</b></div>
+                                             <div class="col-xs-3">Board: <b>
+                                                     <ui:repeat value="#{schools.stringToList(school.board)}" var="board">
+                                                         <a href="#{board.str}">#{board.str}</a>#{board.trail}
+                                                  </ui:repeat>    
+                                                     
+                                                 </b></div>
+                                             <div class="col-xs-6">Medium: <b>
+                                                     <ui:repeat value="#{schools.stringToList(school.medium)}" var="medium">
+                                                         <a href="#{schools.getMedium(medium.str)}">#{schools.getMedium(medium.str)}</a>#{medium.trail}
+                                                  </ui:repeat>    
+                                                     
+                                                 </b></div>
+                                             <div class="col-xs-3">Est. <b>#{school.est_year}</b></div>
                                            
                                          </div>
                                           <div class="row">
-                                              <div class="col-xs-3"><i class="fa fa-phone"></i> #{searchResults.school_contact}</div>
-                                              <div class="col-xs-6"><i class="fa fa-envelope"></i> #{searchResults.school_email}</div>
-                                              <div class="col-xs-3"><i class="fa fa-link "></i> <a href="http://#{searchResults.school_website}"> #{searchResults.school_website}</a></div>
+                                              <div class="col-xs-3"><i class="fa fa-phone"></i> #{school.school_contact}</div>
+                                              <div class="col-xs-6"><i class="fa fa-envelope"></i> #{school.school_email}</div>
+                                              <div class="col-xs-3"><i class="fa fa-link "></i> <a href="http://#{school.school_website}"> #{school.school_website}</a></div>
                                            
                                          </div>
                                           
                                          <div class="row schoolInfo">
                                          
                                          <div class="col-xs-12">
-                                             #{searchResults.description}
+                                             #{school.description}
                                          </div>
                                          </div>
                                          
                                       <div class="row">
                                        <div class="col-xs-12 featuresList">
-                                         <span class="ficon" title="Co-Education">
-                                         <i class="fa fa-2x fa-male text-success" ></i>
-                                         <i class="fa fa-2x fa-female text-success" ></i>
-                                         </span>
-                                          <span class="ficon" title="Internet">
-                                         <i class="fa fa-2x fa-wifi"></i>
-                                         </span>
-                                          <span class="ficon" title="Transportation">
-                                         <i class="fa fa-2x fa-bus text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Library">
-                                         <i class="fa fa-2x fa-book text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Computer Lab">
-                                         <i class="fa fa-2x fa-desktop text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Play Ground">
-                                         <i class="fa fa-2x fa-futbol-o text-success"></i>
-                                         </span>
-                                         <span class="ficon" title="Medical Assistance">
-                                         <i class="fa fa-2x fa-medkit" ></i>
-                                         </span>
-                                         <span class="ficon" title="Pre-School">
-                                         <i class="fa fa-2x fa-child"></i>
-                                         </span>
-                                         <span class="ficon" title="Hostel">
-                                         <i class="fa fa-2x fa-bed"></i>
-                                         </span>
+                                                  
+                                           <ui:fragment rendered="#{school.school_type eq 1}">
+                                                      <span class="ficon" title="Boys">
+                                              
+                                                        <i class="fa fa-2x fa-male text-success" ></i>
+                                                       </span>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{school.school_type eq 2}">
+                                                      <span class="ficon" title="Girls">
+                                              
+                                                       <i class="fa fa-2x fa-female text-success" ></i>
+                                                       </span>
+                                                    </ui:fragment>
+                                                    
+                                                      <ui:fragment rendered="#{school.school_type eq 3}">
+                                                       <span class="ficon" title="Co-Educational">
+                                              
+                                                       <i class="fa fa-2x fa-male text-success" ></i>
+                                                       <i class="fa fa-2x fa-female text-success" ></i>
+                                                       </span>
+                                                    </ui:fragment>
+                                               
+                                              
+                                       
+                                           
+                                           <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'internet') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment  rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-wifi text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-wifi"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                          
+                                                 <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'transportation') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-bus text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-bus"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                           
+                                                <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'library') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-book text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-book"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                           
+                                           
+                                           
+                                           
+                                              <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'computers') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-desktop text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-desktop"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                         
+                                           
+                                              <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'playground') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-futbol-o text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-futbol-o"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                         
+                                              <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'medical_checkup') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-medkit text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-medkit"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                         
+                                                 <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'cafeteria') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-coffee text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-coffee"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                           
+                                           
+                                            <ui:repeat value="#{schools.schoolFacilities(school.school_code, 'hostel') }" var="facility">
+                                                 <span class="ficon" title="#{facility.val}">
+                                              
+                                                    <ui:fragment rendered="#{facility.status eq 1}">
+                                                       
+                                                        <i class="fa fa-2x fa-bed text-success"></i>
+                                                    </ui:fragment>
+                                                    
+                                                     <ui:fragment rendered="#{facility.status eq 0}">
+                                                      
+                                                        <i class="fa fa-2x fa-bed"></i>
+                                                    </ui:fragment>
+                                                     
+                                               </span>
+                                             </ui:repeat>
+                                        
+                                         
                                        </div>
                                        
                                       </div>
@@ -486,300 +628,7 @@
                      
                  </ui:repeat>
     
-          <!--       
-             <div class="panel panel-default"  >
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Silver Oaks -The School Of Hyderabad</h2>
-                            <h5><i class="fa fa-map-marker"></i> <span class="loc">BachuPally</span>, Hyderabad</h5>
-                        </div>
-                        <div class="panel-body">
-                               
-                                      <div class="row">
-                                      <div class="col-sm-3 col-xs-3">
-                                          <img src="http://www.schoolfinder.co.in/SFResources/logos/28051000009.png" />
-                                      </div>
-                                     
-                                      <div class="col-sm-9 col-xs-9">
-                                         <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          
-                                         <div class="row schoolInfo">
-                                         
-                                         <div class="col-xs-12">
-                                             Silver Oaks -The School Of Hyderabad was established in the year 2002. This school follows the CBSE,IB board. The school has English medium.
-                                         </div>
-                                         </div>
-                                         
-                                      <div class="row">
-                                       <div class="col-xs-12 featuresList">
-                                         <span class="ficon" title="Co-Education">
-                                         <i class="fa fa-2x fa-male text-success" ></i>
-                                         <i class="fa fa-2x fa-female text-success" ></i>
-                                         </span>
-                                          <span class="ficon" title="Internet">
-                                         <i class="fa fa-2x fa-wifi"></i>
-                                         </span>
-                                          <span class="ficon" title="Transportation">
-                                         <i class="fa fa-2x fa-bus text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Library">
-                                         <i class="fa fa-2x fa-book text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Computer Lab">
-                                         <i class="fa fa-2x fa-desktop text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Play Ground">
-                                         <i class="fa fa-2x fa-futbol-o text-success"></i>
-                                         </span>
-                                         <span class="ficon" title="Medical Assistance">
-                                         <i class="fa fa-2x fa-medkit" ></i>
-                                         </span>
-                                         <span class="ficon" title="Pre-School">
-                                         <i class="fa fa-2x fa-child"></i>
-                                         </span>
-                                         <span class="ficon" title="Hostel">
-                                         <i class="fa fa-2x fa-bed"></i>
-                                         </span>
-                                       </div>
-                                       
-                                      </div>
-                                      </div>
-                                      </div>
-                                      
-                                      
-                        </div>
-                    </div>
-                 
-             <div class="panel panel-default"  >
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Silver Oaks -The School Of Hyderabad</h2>
-                            <h5><i class="fa fa-map-marker"></i> <span class="loc">BachuPally</span>, Hyderabad</h5>
-                        </div>
-                        <div class="panel-body">
-                               
-                                      <div class="row">
-                                      <div class="col-sm-3 col-xs-3">
-                                          <img src="http://www.schoolfinder.co.in/SFResources/logos/28051000009.png" />
-                                      </div>
-                                     
-                                      <div class="col-sm-9 col-xs-9">
-                                         <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          
-                                         <div class="row schoolInfo">
-                                         
-                                         <div class="col-xs-12">
-                                             Silver Oaks -The School Of Hyderabad was established in the year 2002. This school follows the CBSE,IB board. The school has English medium.
-                                         </div>
-                                         </div>
-                                         
-                                      <div class="row">
-                                       <div class="col-xs-12 featuresList">
-                                         <span class="ficon" title="Co-Education">
-                                         <i class="fa fa-2x fa-male text-success" ></i>
-                                         <i class="fa fa-2x fa-female text-success" ></i>
-                                         </span>
-                                          <span class="ficon" title="Internet">
-                                         <i class="fa fa-2x fa-wifi"></i>
-                                         </span>
-                                          <span class="ficon" title="Transportation">
-                                         <i class="fa fa-2x fa-bus text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Library">
-                                         <i class="fa fa-2x fa-book text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Computer Lab">
-                                         <i class="fa fa-2x fa-desktop text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Play Ground">
-                                         <i class="fa fa-2x fa-futbol-o text-success"></i>
-                                         </span>
-                                         <span class="ficon" title="Medical Assistance">
-                                         <i class="fa fa-2x fa-medkit" ></i>
-                                         </span>
-                                         <span class="ficon" title="Pre-School">
-                                         <i class="fa fa-2x fa-child"></i>
-                                         </span>
-                                         <span class="ficon" title="Hostel">
-                                         <i class="fa fa-2x fa-bed"></i>
-                                         </span>
-                                       </div>
-                                       
-                                      </div>
-                                      </div>
-                                      </div>
-                                      
-                                      
-                        </div>
-                    </div>
-                    
-                    <div class="panel panel-default"  >
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Silver Oaks -The School Of Hyderabad</h2>
-                            <h5><i class="fa fa-map-marker"></i> <span class="loc">BachuPally</span>, Hyderabad</h5>
-                        </div>
-                        <div class="panel-body">
-                               
-                                      <div class="row">
-                                      <div class="col-sm-3 col-xs-3">
-                                          <img src="http://www.schoolfinder.co.in/SFResources/logos/28051000009.png" />
-                                      </div>
-                                     
-                                      <div class="col-sm-9 col-xs-9">
-                                         <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          
-                                         <div class="row schoolInfo">
-                                         
-                                         <div class="col-xs-12">
-                                             Silver Oaks -The School Of Hyderabad was established in the year 2002. This school follows the CBSE,IB board. The school has English medium.
-                                         </div>
-                                         </div>
-                                         
-                                      <div class="row">
-                                       <div class="col-xs-12 featuresList">
-                                         <span class="ficon" title="Co-Education">
-                                         <i class="fa fa-2x fa-male text-success" ></i>
-                                         <i class="fa fa-2x fa-female text-success" ></i>
-                                         </span>
-                                          <span class="ficon" title="Internet">
-                                         <i class="fa fa-2x fa-wifi"></i>
-                                         </span>
-                                          <span class="ficon" title="Transportation">
-                                         <i class="fa fa-2x fa-bus text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Library">
-                                         <i class="fa fa-2x fa-book text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Computer Lab">
-                                         <i class="fa fa-2x fa-desktop text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Play Ground">
-                                         <i class="fa fa-2x fa-futbol-o text-success"></i>
-                                         </span>
-                                         <span class="ficon" title="Medical Assistance">
-                                         <i class="fa fa-2x fa-medkit" ></i>
-                                         </span>
-                                         <span class="ficon" title="Pre-School">
-                                         <i class="fa fa-2x fa-child"></i>
-                                         </span>
-                                         <span class="ficon" title="Hostel">
-                                         <i class="fa fa-2x fa-bed"></i>
-                                         </span>
-                                       </div>
-                                       
-                                      </div>
-                                      </div>
-                                      </div>
-                                      
-                                      
-                        </div>
-                    </div>
-                    
-                    <div class="panel panel-default"  >
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Silver Oaks -The School Of Hyderabad</h2>
-                            <h5><i class="fa fa-map-marker"></i> <span class="loc">BachuPally</span>, Hyderabad</h5>
-                        </div>
-                        <div class="panel-body">
-                               
-                                      <div class="row">
-                                      <div class="col-sm-3 col-xs-3">
-                                          <img src="http://www.schoolfinder.co.in/SFResources/logos/28051000009.png" />
-                                      </div>
-                                     
-                                      <div class="col-sm-9 col-xs-9">
-                                         <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          <div class="row">
-                                           <div class="col-xs-3">Board: <b><a>CBSE</a>, <a>IB</a></b></div>
-                                           <div class="col-xs-6">Medium: <b><a>English</a>, <a>Telugu</a></b></div>
-                                           <div class="col-xs-3">Est. <b>2002</b></div>
-                                           
-                                         </div>
-                                          
-                                         <div class="row schoolInfo">
-                                         
-                                         <div class="col-xs-12">
-                                             Silver Oaks -The School Of Hyderabad was established in the year 2002. This school follows the CBSE,IB board. The school has English medium.
-                                         </div>
-                                         </div>
-                                         
-                                      <div class="row">
-                                       <div class="col-xs-12 featuresList">
-                                         <span class="ficon" title="Co-Education">
-                                         <i class="fa fa-2x fa-male text-success" ></i>
-                                         <i class="fa fa-2x fa-female text-success" ></i>
-                                         </span>
-                                          <span class="ficon" title="Internet">
-                                         <i class="fa fa-2x fa-wifi"></i>
-                                         </span>
-                                          <span class="ficon" title="Transportation">
-                                         <i class="fa fa-2x fa-bus text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Library">
-                                         <i class="fa fa-2x fa-book text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Computer Lab">
-                                         <i class="fa fa-2x fa-desktop text-success"></i>
-                                         </span>
-                                          <span class="ficon" title="Play Ground">
-                                         <i class="fa fa-2x fa-futbol-o text-success"></i>
-                                         </span>
-                                         <span class="ficon" title="Medical Assistance">
-                                         <i class="fa fa-2x fa-medkit" ></i>
-                                         </span>
-                                         <span class="ficon" title="Pre-School">
-                                         <i class="fa fa-2x fa-child"></i>
-                                         </span>
-                                         <span class="ficon" title="Hostel">
-                                         <i class="fa fa-2x fa-bed"></i>
-                                         </span>
-                                       </div>
-                                       
-                                      </div>
-                                      </div>
-                                      </div>
-                                      
-                                      
-                        </div>
-                    </div>                    
-                
-              -->  
+      
              </div>
              
              <div class="col-md-4 col-sm-8">
@@ -924,7 +773,7 @@
 <!--owl carousel Script--> 
 <script src="js/owl.carousel.min.js"></script> 
 <!--Numbersup Script--> <script src="js/jquery.counterup.min.js"></script> 
-
+<script src="js/autoSuggestv14/jquery.autoSuggest.js"></script> 
  <script src="js/bootstrap-slider.min.js"></script>
 <script src="material/js/material.min.js"></script> 
 <script src="material/js/ripples.min.js">
