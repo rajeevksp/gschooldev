@@ -302,7 +302,7 @@ $(".dropdown-menu li a").click(function(){
 
 
 
-	 $("#focusedInput").autoSuggest("http://localhost:8080/gschooldev/webresources/autoComplete", {minChars: 1, matchCase: false, asHtmlID:'location', selectedItemProp: "name",selectionLimit:2, searchObjProps: "value,name", selectedValuesProp: "value"});
+	 $("#focusedInput").autoSuggest("http://localhost:8080/gschooldev/webresources/autoComplete", {minChars: 1, matchCase: false, asHtmlID:'location', selectedItemProp: "name",selectionLimit:2, searchObjProps: "value,name", selectedValuesProp: "value", preFill: $('#prefill').val()});
 
 }();
 

@@ -177,6 +177,10 @@ font-weight:400;
 	color:#fff;
 }
 
+.panel-default .schoolRating p{
+    color:#00b7c3;
+}
+
 .schoolRating span .dark{
  
 }
@@ -214,7 +218,7 @@ font-weight:400;
 	text-align:center;
 }
 .schoolInfo{
-	padding:8px  auto;
+	padding:12px  auto;
 	font-size:90%;
 	color:#666;
 }
@@ -438,3 +442,5 @@ font-weight:400;
 	text-transform:capitalize;
 	
 }
+
+

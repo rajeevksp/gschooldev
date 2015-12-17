@@ -11,9 +11,12 @@ import entity.InstructionMedium;
 import entity.SchoolFacilitiesInfo;
 import entity.SchoolMainInfo;
 import entity.SchoolSearchInfo;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Named;
@@ -31,8 +34,150 @@ public class Schools {
     List<SearchResults> school =  new ArrayList<>();
     List<StringList> strlist = new ArrayList<>();
     
+        private String standard;
+    private int medium;
+    private String fee_yealry;
+    private String board;
+    private int school_type;
+    private boolean transportation;
+    private boolean reservation;
+    private boolean playground;
+    private boolean residential;
+    private int management;
+
+    
     DbCon db;
 
+    
+    
+    
+     public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public int getMedium() {
+        return medium;
+    }
+
+    public void setMedium(int medium) {
+        this.medium = medium;
+    }
+
+    public String getFee_yealry() {
+        return fee_yealry;
+    }
+
+    public void setFee_yealry(String fee_yealry) {
+        this.fee_yealry = fee_yealry;
+    }
+
+    public String getBoard() {
+        return board;
+    }
+
+    public void setBoard(String board) {
+        this.board = board;
+    }
+
+    public int getSchool_type() {
+        return school_type;
+    }
+
+    public void setSchool_type(int school_type) {
+        this.school_type = school_type;
+    }
+
+    public boolean isTransportation() {
+        return transportation;
+    }
+
+    public void setTransportation(boolean transportation) {
+        this.transportation = transportation;
+    }
+
+    public boolean isReservation() {
+        return reservation;
+    }
+
+    public void setReservation(boolean reservation) {
+        this.reservation = reservation;
+    }
+
+    public boolean isPlayground() {
+        return playground;
+    }
+
+    public void setPlayground(boolean playground) {
+        this.playground = playground;
+    }
+
+    public boolean isResidential() {
+        return residential;
+    }
+
+    public void setResidential(boolean residential) {
+        this.residential = residential;
+    }
+
+    public int getManagement() {
+        return management;
+    }
+
+    public void setManagement(int management) {
+        this.management = management;
+    }
+
+    
+    
+    public void filterSearch() throws IOException{
+         System.out.print("Coming here filter: "+this.board+","+this.school_type+","+this.standard);
+        
+    
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext(); 
+       
+         Map<String,String> requestParams = context.getRequestParameterMap();
+           
+        if(requestParams.get("board").length() > 0)
+        this.board = (requestParams.get("board").trim());
+        
+        if(requestParams.get("fee_yearly").length() > 0)
+        this.fee_yealry = (requestParams.get("fee_yearly").trim());
+        
+        if(requestParams.get("school_type").length() > 0)
+        this.school_type  = Integer.parseInt(requestParams.get("school_type"));
+        
+        if(requestParams.get("standard").length() > 0)
+        this.standard = (requestParams.get("standard").trim());
+        
+        if(requestParams.containsKey("transportation"))
+            this.transportation = true;
+        
+        if(requestParams.containsKey("reservation"))
+            this.reservation = true;
+        
+        if(requestParams.containsKey("residential"))
+            this.residential = true;
+        
+        
+        if(requestParams.containsKey("playground"))
+            this.playground = true;
+        
+        
+       
+        
+           
+       
+       
+        
+         context.redirect("results.xhtml");
+       // return "results";
+    }
+    
+    
     public List<StringList> getStrlist() {
         return strlist;
     }
@@ -57,45 +202,86 @@ public class Schools {
         
          List<SearchResults> scd =  new ArrayList<>();
     
+         String scodes = "";
+         //Change this condition for advertiser_rank
         String query_con = "";
         
         for(String part: parts){
             if(part.length() > 0){
                 
                 if(query_con.length() > 0)
-                    query_con+= " AND ";
+                    query_con+= " OR ";
                 
-                query_con+= " (location LIKE '"+part+"%' OR school_name LIKE '"+part+"%')";
+                query_con+= " (school_search_info.location LIKE '"+part+"%' OR school_search_info.school_name LIKE '"+part+"%')";
             }
         }
         
         
-         if(query_con.length() > 0)
-                    query_con= " WHERE "+query_con;
+        
+     
                
+           db = new DbCon();
+           
+          //List sponsored schools first
+          String final_con = " school_search_info.school_code = school_main_info.school_code AND school_main_info.advertiser_rank < 10";
         
-        
-        
-        System.out.print("read param");
-        
-          db = new DbCon();
-       
-            List<SchoolSearchInfo> school_d = SchoolSearchInfo.findBySQL("select * from school_search_info "+query_con+" ORDER BY ranking DESC,user_ranking DESC LIMIT 0,30");
+         if(query_con.length() > 0)
+                    final_con= " WHERE "+final_con+" AND ("+query_con+")";
          
-            System.out.printf("results :"+school_d.size());
-            
-            
+            List<SchoolSearchInfo> school_d = SchoolSearchInfo.findBySQL("select school_search_info.*,school_search_info.school_code from school_search_info,school_main_info "+final_con+" ORDER BY advertiser_rank ASC,ranking DESC,user_ranking DESC LIMIT 0,2");
+          
             
             if(school_d.size() > 0){
-                int i=0;
+               
                 for(SchoolSearchInfo school_data: school_d){
-                 SearchResults search_res = new SearchResults();
+                    scodes+= "'"+school_data.getString("school_code")+"',";
+                  scd.add(this.schoolInfo(school_data,1));
+             
+                }   
+                     
+            }
+            
+            //List other schools
+            
+          final_con = "";
+          if(scodes.length() > 0)
+          final_con = " school_search_info.school_code NOT IN("+scodes.substring(0,scodes.length()-1)+")  AND ";
+        
+         if(query_con.length() > 0)
+                    final_con= " WHERE "+final_con+" ("+query_con+")";
+            List<SchoolSearchInfo> school_d2 = SchoolSearchInfo.findBySQL("select * from school_search_info "+final_con+" ORDER BY  ranking DESC,user_ranking DESC LIMIT 0,30");
+          
+            
+            if(school_d2.size() > 0){
+               
+                for(SchoolSearchInfo school_data: school_d2){
+                  scd.add(this.schoolInfo(school_data,0));
+             
+                }   
+                     
+            }
+            
+            
+             this.school = scd;
+        
+             db.closeDb();
+        
+    }
+
+    
+    
+    
+    public SearchResults schoolInfo(SchoolSearchInfo school_data,int sponsored){
+        
+        
+         SearchResults search_res = new SearchResults();
                  
                  search_res.setSchool_code(school_data.getString("school_code"));
                  search_res.setSchool_name(school_data.getString("school_name"));
                  search_res.setLocation(school_data.getString("location"));
                  search_res.setCity(school_data.getString("city"));   
                  search_res.setSchool_type(school_data.getInteger("school_type"));
+                 search_res.setSponsored_result(sponsored);
                 
                   search_res.setRating(school_data.getString("user_ranking"));
                  
@@ -124,8 +310,19 @@ public class Schools {
                  
                  search_res.setEst_year(school_main.getString("establishment_year"));
                  
+                 
+                 String description = school_main.getString("school_introduction");
+                 
+                 if(description.length() > 50){
+                     description = description.substring(0,50)+"...";
+                 }
+                 else if(description.length() == 0){
+                     description = school_data.getString("school_name")+" was established in "+school_main.getString("establishment_year");
+                 }
                 
-                 search_res.setDescription(school_main.getString("school_introduction"));
+                 search_res.setDescription(description);
+                 
+                 
                  
                  
                      String medium = school_main.getString("instruction_medium_1");
@@ -145,26 +342,14 @@ public class Schools {
                  search_res.setSchool_contact(school_main.getString("phone_number_1"));
                  search_res.setSchool_email(school_main.getString("email_id_1"));
                  search_res.setSchool_website(school_main.getString("website_url"));
+                  search_res.setSchool_logo(school_main.getString("thumbnail_url"));
+                  search_res.setDescription(school_main.getString("school_introduction"));
+                 
                  }
                  
-                System.out.print("Out:"+search_res.getMedium());
-                 
-                 scd.add(search_res);
-                  
-                    //    ret+= "-School Name:"+school_data.getString("school_name")+"-School Code:"+school_data.get("school_code");
-                }   
-                
-                
-                this.school = scd;
-                
-                      //   ret.put(fieldName, tempar);
-                    
-            }
-            
-        db.closeDb();
+                 return search_res;
         
     }
-
     
     
     public  SchoolFacilities  schoolFacilities(String school_code,String property){

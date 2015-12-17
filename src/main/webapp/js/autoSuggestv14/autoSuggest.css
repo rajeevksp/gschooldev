@@ -132,6 +132,9 @@ ul.as-selections li.as-original input {
         
 }
 
+.form-group .form-control:focus{
+    background:none;
+}
 ul.as-list {
 	position: absolute;
 	list-style-type: none;

@@ -5,6 +5,7 @@
  */
 package com.goolschool.gschooldev.util;
 
+import com.goolschool.gschooldev.db.DbCon;
 import entity.SchoolSearchInfo;
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,7 +31,7 @@ public class apiClass {
 
     @Context
     private UriInfo context;
-
+    private DbCon db;
     /**
      * Creates a new instance of apiClass
      */
@@ -49,64 +50,77 @@ public class apiClass {
         
    
          JSONArray slist = new JSONArray() ;
-         JSONArray loclist = new JSONArray() ;
+        // JSONArray loclist = new JSONArray() ;
 
-         slist = listSchool("school_name",to);
-        loclist = listSchool("location",to);
+         slist = listSchool(to);
+     //   loclist = listSchool("location",to);
             
-        
+        System.out.print("results: "+slist.toJSONString());
              
-           for(int i=0;i < (slist.size());i++){
-                  loclist.add(slist.get(i));
-           }
+       //    for(int i=0;i < (slist.size());i++){
+       //           loclist.add(slist.get(i));
+        //   }
            
         
         
-        return  loclist.toJSONString();
+        return  slist.toJSONString();
     }
     
     
     
       
     /* Method to  READ all the employees using Scalar Query */
-   public JSONArray listSchool (String fieldName,String fieldVal ){
+   public JSONArray listSchool (String fieldVal ){
     
      // Transaction tx = null;
      // JSONObject ret = new JSONObject() ;
-      JSONObject temp = new JSONObject() ;
+    //  JSONObject temp = new JSONObject() ;
       
       JSONArray tempar = new JSONArray();
        try{
            
                    
         // Class.forName("com.mysql.jdbc.Driver");  
-         
-         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/goolschool", "root", "");
-         
-            List<SchoolSearchInfo> school = SchoolSearchInfo.findBySQL("select * from school_search_info WHERE "+fieldName+" LIKE '"+fieldVal+"%' LIMIT 0,5");
-         
-            System.out.printf("results :"+school.size());
-            
+         db = new DbCon();
+           
+            List<SchoolSearchInfo> school = SchoolSearchInfo.findBySQL("select DISTINCT(location) from school_search_info WHERE location LIKE '"+fieldVal+"%' OR school_name LIKE '"+fieldVal+"%' LIMIT 0,5");
+           int i=0;
             if(school.size() > 0){
-                int i=0;
+                
                 for(SchoolSearchInfo school_data: school){
-                 temp.put("name",toTitleCase(school_data.get(fieldName).toString()));
-                         //+","+school_data.get("location"));
-                 temp.put("value",school_data.get(fieldName));
-                 // temp.put("location",school_data.get("location"));
-                 
-                 tempar.add(temp);
-                    
-                //    ret+= "-School Name:"+school_data.get("school_name")+"-School Code:"+school_data.get("school_code");
-                }   
-                
-                
-                      //   ret.put(fieldName, tempar);
-                    
+                     JSONObject temp = new JSONObject() ;
+      
+                  temp.put("name",toTitleCase(school_data.get("location").toString()));
+                  temp.put("value",school_data.get("location"));
+                  
+                   tempar.add(i, temp);
+                   i++;
+                 }   
+                       
             }
             
-         Base.close();
-
+          //  System.out.print("location: "+tempar.toJSONString());
+            
+           List<SchoolSearchInfo> school_spon = SchoolSearchInfo.findBySQL("select DISTINCT(school_name) from school_search_info WHERE location LIKE '"+fieldVal+"%' OR school_name LIKE '"+fieldVal+"%' LIMIT 0,5");
+           
+            if(school_spon.size() > 0){
+                
+                for(SchoolSearchInfo school_data: school_spon){
+                     JSONObject temp = new JSONObject() ;
+      
+                 temp.put("name",toTitleCase(school_data.get("school_name").toString()));
+                  temp.put("value",school_data.get("school_name"));
+                  
+                   tempar.add(i, temp);
+                   i++;
+                    
+                 }   
+                       
+            }
+            
+            System.out.print("school: "+tempar.toJSONString());
+            
+        db.closeDb();
          
          
        }

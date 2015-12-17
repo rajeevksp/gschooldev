@@ -32,7 +32,18 @@ public class SearchResults {
     private String school_contact;
     private String school_email;
     private String school_website;
+    private int sponsored_result;
 
+    public int getSponsored_result() {
+        return sponsored_result;
+    }
+
+    public void setSponsored_result(int sponsored_result) {
+        this.sponsored_result = sponsored_result;
+    }
+
+    
+    
     public int getSchool_type() {
         return school_type;
     }

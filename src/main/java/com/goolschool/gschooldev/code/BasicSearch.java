@@ -5,6 +5,7 @@
  */
 package com.goolschool.gschooldev.code;
 
+import com.goolschool.gschooldev.util.apiClass;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
@@ -13,6 +14,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
   
   
 //import javax.inject.Named;
@@ -26,6 +29,9 @@ public class BasicSearch implements Serializable{
     
     private String as_values_location;
 
+   
+    
+    
     public String getAs_values_location() {
         return as_values_location;
     }
@@ -38,6 +44,9 @@ public class BasicSearch implements Serializable{
          System.out.print("Search for "+this.as_values_location);
         return "results?faces-redirect=true";
     }
+    
+     
+    
     
     public void submitSearch() throws IOException{
         
@@ -56,9 +65,29 @@ public class BasicSearch implements Serializable{
        // return "results";
     }
     
+    
     public void saveUserSearch(){
         
     }
     
+    
+    public JSONArray strToJson(String str){
+        
+        JSONArray jsonar = new JSONArray();
+        JSONObject json = new JSONObject();
+         
+           String[] str_array = str.split(",");
+           
+           for(String val:str_array){
+               json.put("name", apiClass.toTitleCase(val));
+                json.put("value", val);
+                jsonar.add(json);
+           }
+        
+        
+        return jsonar;
+         
+        
+    }
     
 }
