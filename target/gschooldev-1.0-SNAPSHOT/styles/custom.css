@@ -156,6 +156,11 @@ font-weight:400;
 .school{
 	
 }
+
+
+.upperCase{
+    text-transform: uppercase;
+}
 .resultPagination .breadcrumb{
 	margin:2px auto;
 }

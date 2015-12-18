@@ -78,7 +78,8 @@ public class Schools {
         
         
         
-     
+        
+           
                
            db = new DbCon();
            
@@ -188,13 +189,13 @@ public class Schools {
                      String medium = school_main.getString("instruction_medium_1");
                  
                  if(school_main.getString("instruction_medium_2").length() > 0)
-                     board+= ", "+school_main.getString("instruction_medium_2");
+                     medium+= ", "+school_main.getString("instruction_medium_2");
                  
                   if(school_main.getString("instruction_medium_3").length() > 0)
-                     board+= ", "+school_main.getString("instruction_medium_3");
+                     medium+= ", "+school_main.getString("instruction_medium_3");
                  
                    if(school_main.getString("instruction_medium_4").length() > 0)
-                     board+= ", "+school_main.getString("instruction_medium_4");
+                     medium+= ", "+school_main.getString("instruction_medium_4");
                  
                  
                  

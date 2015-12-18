@@ -8,12 +8,19 @@ package com.goolschool.gschooldev.db;
 import com.goolschool.gschooldev.util.SchoolFacilities;
 import com.goolschool.gschooldev.util.StringList;
 import com.goolschool.gschooldev.util.apiClass;
+import entity.InstructionMedium;
 import entity.SchoolFacilitiesInfo;
 import entity.SchoolMainInfo;
 import entity.SchoolSearchInfo;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
  
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.facelets.FaceletContext;
@@ -41,6 +48,7 @@ public class SchoolInfo  {
     
     private String full_address;
     private String district_pin;
+    private String state;
     private String location ;
     private String city ;
     private double latitude;
@@ -59,15 +67,105 @@ public class SchoolInfo  {
     private String primary_school_timings;
     private String high_school_timings;
     private String school_management;
-    private String ptr;
+    private int ptr;
     private String recognized_by;
+    private int total_students;
+    private int num_inst_chain;
+    private String usp;
+    private String transport_areas;
+    private boolean cce;
+    private boolean pcr;
+    private boolean smc;
+    private int smc_m;
+    private int smc_f;
+    private boolean admissions;
+    private String map_url;
+
+    public String getMap_url() {
+        return map_url;
+    }
+
+    public void setMap_url(String map_url) {
+        this.map_url = map_url;
+    }
+    
+    
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getTransport_areas() {
+        return transport_areas;
+    }
+
+    public void setTransport_areas(String transport_areas) {
+        this.transport_areas = transport_areas;
+    }
+
+    
+    
+    public String getExtra_curricular_activities() {
+        return extra_curricular_activities;
+    }
+
+    public void setExtra_curricular_activities(String extra_curricular_activities) {
+        this.extra_curricular_activities = extra_curricular_activities;
+    }
+
+    public String getSports_activities() {
+        return sports_activities;
+    }
+
+    public void setSports_activities(String sports_activities) {
+        this.sports_activities = sports_activities;
+    }
+
+    public boolean isAdmissions() {
+        return admissions;
+    }
+
+    public void setAdmissions(boolean admissions) {
+        this.admissions = admissions;
+    }
+
+    public int getTotal_students() {
+        return total_students;
+    }
+
+    public void setTotal_students(int total_students) {
+        this.total_students = total_students;
+    }
+
+    public String getUsp() {
+        return usp;
+    }
+
+    public void setUsp(String usp) {
+        this.usp = usp;
+    }
+
+    public List<String> getQuickfacts() {
+        return quickfacts;
+    }
+
+    public void setQuickfacts(List<String> quickfacts) {
+        this.quickfacts = quickfacts;
+    }
+    
+    
     
     private List<SchoolFacilitiesInfo> school_facility_list;
     
     private List<String> quickfacts;
 
     private String academic_activities;
-    private String curricular_activities;
+    private String extra_curricular_activities;
+    private String sports_activities;
 
     DbCon db;
 
@@ -111,7 +209,11 @@ public class SchoolInfo  {
              
            this.rating = school_search_data.getString("ranking");
            this.user_rating = school_search_data.getString("user_ranking");
-            this.school_type = school_search_data.getString("school_type");
+           this.school_type = school_search_data.getString("school_type");
+           this.num_inst_chain = school_search_data.getInteger("num_inst_chain");
+           
+           //Set School Type value based on institute_type
+           this.school_type = "Independent";              
             
             
        }
@@ -126,11 +228,16 @@ public class SchoolInfo  {
             }
             
             
-            this.full_address = apiClass.toTitleCase(school_data.getString("address_line_1") +", "+ school_data.getString("address_line_1"))+", ";
+            this.full_address = apiClass.toTitleCase(school_data.getString("address_line_1") +", "+ school_data.getString("address_line_2"))+", ";
             this.city = apiClass.toTitleCase(school_data.getString("city"))+",";
             this.location = apiClass.toTitleCase(school_data.getString("location"));
             this.district_pin = apiClass.toTitleCase( school_data.getString("district"))+", "+ apiClass.toTitleCase(school_data.getString("state"))+"-"+school_data.getString("pincode");
-            this.school_contact = school_data.getString("phone_numbe_1")+","+school_data.getString("phone_numbe_2");
+            this.school_contact = school_data.getString("phone_number_1");
+          
+            if(school_data.getString("phone_number_2").length() > 0){
+            school_contact+= ","+school_data.getString("phone_number_2");
+            }
+            
             this.school_email = school_data.getString("email_id_1");
             this.school_website = school_data.getString("website_url");
             this.est_year = school_data.getString("establishment_year");
@@ -139,23 +246,23 @@ public class SchoolInfo  {
               
                  String description_txt = school_data.getString("school_introduction");
                  
-                 if(description_txt.length() > 50){
-                     this.description = description_txt.substring(0,50)+"...";
-                 }
-                 else if(description_txt.length() == 0){
+                 
+                     this.description = description_txt;
+                  
+                  if(description_txt.length() == 0){
                      this.description =  school_name+" was established in "+est_year;
                  }
             
-                    String medium_txt = school_data.getString("instruction_medium_1");
+                    String medium_txt = getMed(school_data.getString("instruction_medium_1"));
                  
-                 if(school_data.getString("instruction_medium_2").length() > 0)
-                     medium_txt+= ", "+school_data.getString("instruction_medium_2");
+                 if(!school_data.getString("instruction_medium_2").equals("0"))
+                     medium_txt+= ", "+getMed(school_data.getString("instruction_medium_2"));
                  
-                  if(school_data.getString("instruction_medium_3").length() > 0)
-                     medium_txt+= ", "+school_data.getString("instruction_medium_3");
+                  if(!school_data.getString("instruction_medium_3").equals("0"))
+                     medium_txt+= ", "+getMed(school_data.getString("instruction_medium_3"));
                  
-                   if(school_data.getString("instruction_medium_4").length() > 0)
-                     medium_txt+= ", "+school_data.getString("instruction_medium_4");
+                   if(!school_data.getString("instruction_medium_4").equals("0"))
+                     medium_txt+= ", "+getMed(school_data.getString("instruction_medium_4"));
                  
                    this.medium = medium_txt;
 
@@ -163,15 +270,72 @@ public class SchoolInfo  {
                this.primary_school_timings = school_data.getString("timings_primary");
                this.high_school_timings = school_data.getString("timings_higher");
                
-               this.ptr = school_data.getString("teacher_student_ratio");
+               this.ptr = school_data.getInteger("teacher_student_ratio");
                
                if(school_data.getBoolean("school_recognized"))
                this.recognized_by = school_data.getString("recognized_by");
                
+                this.total_students = school_data.getInteger("student_count_preprimary")+school_data.getInteger("student_count_boys")+school_data.getInteger("student_count_girls");
                
-                
+               this.cce = school_data.getBoolean("cce");
+               this.pcr = school_data.getBoolean("pcr");
+               this.smc = school_data.getBoolean("smc_present");
+               this.smc_m = school_data.getInteger("smc_parent_m");
+               this.smc_f = school_data.getInteger("smc_parent_f");
+               
         
+               this.usp = school_data.getString("unique_selling_point");
+               this.quickfacts = createFacts();
+               this.state = school_data.getString("state");
+               
+               //Write conditions here for school_management type
+               this.school_management = "Private Aided";
+                
+               
+               this.admissions = false;
+               
+               if(school_data.getString("admissions_start_date").length() > 0){
+               
+                   
+                   
+                try {
+                    Date st_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(school_data.getString("admissions_start_date"));
+                     Date end_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(school_data.getString("admissions_end_date"));
+                   
+                     Date now = new Date();
+                     
+                     
+                     if(now.after(st_date) && now.before(end_date)){
+                         this.admissions = true;
+                     }
+                         
+                     
+                     
+                } catch (ParseException ex) {
+                    Logger.getLogger(SchoolInfo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+               }
+               else if(school_data.getString("admissions_month").length() > 0){
+                   Calendar cal = Calendar.getInstance();
+                   String current_month = new SimpleDateFormat("MMMM").format(cal.getTime());
+                   if(current_month.equals(school_data.getString("admissions_month").toUpperCase()))
+                       this.admissions = true;
+               }
+               
+               
+               this.extra_curricular_activities = schoolFacilities(school_code,"extra_curricular_activities").getVal();
+                this.sports_activities = schoolFacilities(school_code,"sports_activities").getVal();
+                 this.transport_areas = schoolFacilities(school_code,"transportation").getVal();
+               
+                 
+                 
+                 
+                 this.map_url ="https://www.google.com/maps/embed/v1/directions?origin="+location+"&destination="+school_name+","+location+","+city+","+district_pin+"&waypoints="+areasMap(transport_areas);
+                 
        }
+        
+        
         
         
         db.closeDb();
@@ -201,7 +365,7 @@ public class SchoolInfo  {
                   
                    case "computers":
                  
-                   fc.setFacility("Computers");
+                   fc.setFacility("Computer Labs");
                  if(facility.getInteger("no_of_computers") > 0)
                      fc.setStatus(1);
                  else
@@ -248,7 +412,20 @@ public class SchoolInfo  {
                  }
                   
                   break;
-                  
+               
+                   case "smart":
+                 
+                        fc.setFacility("Smart Classroom");
+                 if(facility.getBoolean("smart_class")){
+                     fc.setStatus(1);
+                     fc.setVal("Available");
+                 }
+                 else{
+                     fc.setStatus(0);
+                     fc.setVal("Not Available");
+                 }
+                    
+                    break;
                    case "food_served":
                  
                         fc.setFacility("Food Served");
@@ -429,7 +606,20 @@ public class SchoolInfo  {
                    
                    break;
                       
-                      
+                   case "ac":
+                 
+                   
+                   fc.setFacility("AC Class rooms");
+                 if(facility.getBoolean("ac_classrooms")  ){
+                     fc.setStatus(1);
+                     fc.setVal("Available");
+                 }
+                 else{
+                     fc.setStatus(0);
+                     fc.setVal("Not Available");
+                 }
+                   
+                   break;    
                 case "extra_curricular_activities":
                  
                    
@@ -445,7 +635,20 @@ public class SchoolInfo  {
                    
                    break;
                     
-                    
+                    case "sports_activities":
+                 
+                   
+                   fc.setFacility("Sports Activities");
+                 if(facility.getString("sports_activities").length() > 0){
+                     fc.setStatus(1);
+                     fc.setVal(facility.getString("sports_activities"));
+                 }
+                 else{
+                     fc.setStatus(0);
+                     fc.setVal("");
+                 }
+                   
+                   break;   
                
                 case "transportation":
                  
@@ -453,7 +656,7 @@ public class SchoolInfo  {
                    fc.setFacility("Transportation");
                  if(facility.getBoolean("transport_provided")  ){
                      fc.setStatus(1);
-                     fc.setVal("Available");
+                     fc.setVal(facility.getString("transport_area"));
                  }
                  else{
                      fc.setStatus(0);
@@ -476,6 +679,32 @@ public class SchoolInfo  {
     }
     
     
+    
+        public String getMed(String medium_id){
+        
+        String medtxt = "";
+        
+         
+        if(!medium_id.equals("0")){  
+            db = new DbCon();
+       
+       
+        List<InstructionMedium> med = InstructionMedium.where("code=?", medium_id);
+         
+        
+        if(med.size() > 0){
+            InstructionMedium med_data = med.get(0);
+            
+            medtxt = med_data.getString("language");
+        }
+        
+        
+        db.closeDb();
+         }
+        return medtxt;
+        
+    }
+    
     public List<StringList> stringToList(String str){
         List<StringList> list_str = new ArrayList<>();
         
@@ -486,14 +715,17 @@ public class SchoolInfo  {
          for(int i=0;i < bstr.length;i++){
           
              StringList strl = new StringList();
-             strl.setStr(bstr[i]);
-             if(i < bstr.length-1)
-                 strl.setTrail(", ");
-             else
-                 strl.setTrail("");
              
-             list_str.add(strl);
-             
+             if(!bstr[i].equals("0")){
+                strl.setStr(bstr[i]);
+
+                if(i < bstr.length-1)
+                    strl.setTrail(", ");
+                else
+                    strl.setTrail("");
+
+                list_str.add(strl);
+             }
              
          }
          
@@ -502,11 +734,66 @@ public class SchoolInfo  {
     }
     
 
+    public String areasMap(String areas){
+        
+        
+        String[] route = areas.split(",");
+        
+        String map = "";
+           
+          for(String rt:route){
+              
+              
+              map+= rt+",+"+city+",+"+state+"|";
+              
+          }
+        
+          
+         // map+= school_name+","+location+",+"+city+",+"+district_pin;
+        
+        
+        return map;
+        
+        
+    }
     
     public List<String> createFacts(){
         
         quickfacts = new ArrayList<>();
         
+        int i=0;
+        quickfacts.add(i++, "Total Enrolled Students: "+total_students);
+        
+        String ptr_rating = "less";
+        if(ptr <= 25)
+            ptr_rating = "Good";
+        
+        else if(ptr > 25 && ptr <35)
+            ptr_rating = "Moderate";
+        
+        quickfacts.add(i++, "Individual attention on students is  "+ptr_rating+" as PTR stands at "+ptr+":1");
+        
+        //Need to change based on institution focus in school_main_info
+        quickfacts.add(i++, "This institution concentrates on Holistic development of students");
+        
+        if(cce)
+        quickfacts.add(i++, "School follows Continuous and Comprehensive Evaluation (CCE) for student assessment");
+        else if(pcr)
+         quickfacts.add(i++, "School follows regular academic ranking for student assessment");
+        
+        if(smc)
+        quickfacts.add(i++, "This school maintains a good number of "+(smc_m+smc_f)+" parents in School Management Committee meetings to take decisions.");
+        
+        
+        if(num_inst_chain <= 1){
+          quickfacts.add(i++, "This school operates independently and offers "+board+" Curriculum");
+      
+        }
+        else{
+             quickfacts.add(i++, "This school operates  with multiple branches and offers "+board+" Curriculum");
+        
+         }
+         
         
         return quickfacts;
         
@@ -720,11 +1007,11 @@ public class SchoolInfo  {
         this.school_management = school_management;
     }
 
-    public String getPtr() {
+    public int getPtr() {
         return ptr;
     }
 
-    public void setPtr(String ptr) {
+    public void setPtr(int ptr) {
         this.ptr = ptr;
     }
 
@@ -744,14 +1031,7 @@ public class SchoolInfo  {
         this.academic_activities = academic_activities;
     }
 
-    public String getCurricular_activities() {
-        return curricular_activities;
-    }
 
-    public void setCurricular_activities(String curricular_activities) {
-        this.curricular_activities = curricular_activities;
-    }
-    
     
     
     
