@@ -135,6 +135,15 @@ font-weight:400;
     border-top-right-radius: 2px;
     padding: 10px 15px 4px;
 }
+
+.panel-title{
+    cursor:pointer;
+}
+.panel-title a,.panel-title a:hover,.panel-title a:active{
+    text-decoration: none;
+    color:#fff;
+}
+
  .panel-body{
 	padding-top:10px;
 }

@@ -93,7 +93,7 @@ ul.as-selections li.as-original input {
          <div class="container-fluid"> 
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" > <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                <a class="navbar-brand txt_uc" href="index.html">Gool School</a></div>
             
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -165,7 +165,7 @@ ul.as-selections li.as-original input {
            <div class=" col-sm-5 col-md-5 check">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" class="form-control" jsf:id="transportation" jsf:value="#{schools.transportation}" value="" />
+                        <input type="checkbox" class="form-control" jsf:id="transportation" jsf:value="#{filterResults.transportation}" value="" />
                         <span class="checkbox-material">
                            <span class="check"></span>
                         </span>
@@ -173,7 +173,7 @@ ul.as-selections li.as-original input {
                     </label>
                 &#160;&#160;
                     <label>
-                        <input type="checkbox" class="form-control" jsf:id="reservation" jsf:value="#{schools.reservation}" value=""/>
+                        <input type="checkbox" class="form-control" jsf:id="reservation" jsf:value="#{filterResults.reservation}" value=""/>
                         <span class="checkbox-material">
                            <span class="check"></span>
                         </span>
@@ -189,7 +189,7 @@ ul.as-selections li.as-original input {
            <div class=" col-sm-2 check">
               <div class="btn-group ">
 
-                  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" jsf:id="standard" jsf:value="#{schools.standard}">
+                  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" jsf:id="standard" jsf:value="#{filterResults.standard}">
     Class / Standard <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -214,7 +214,7 @@ ul.as-selections li.as-original input {
    <div class=" col-sm-2   check">
                  <div class="btn-group ">
 
-                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="board" jsf:value="#{schools.board}">
+                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="board" jsf:value="#{filterResults.board}">
     Board of Education<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -236,13 +236,13 @@ ul.as-selections li.as-original input {
            
        <b class="rangeTxtLow"  >12K</b>
            
-       <input type="text" id="fee_range"  jsf:id="fee_yearly" jsf:value="#{schools.fee_yealry}"  value=""   data-slider-min="12000" data-slider-max="120000" data-slider-step="2000" data-slider-value="[24000,48000]" data-slider-orientation="horizontal" /><b  class=" rangeTxtHigh"  >&gt; 1.2L</b> 
+       <input type="text" id="fee_range"  jsf:id="fee_yearly" jsf:value="#{filterResults.fee_yealry}"  value=""   data-slider-min="12000" data-slider-max="120000" data-slider-step="2000" data-slider-value="[24000,48000]" data-slider-orientation="horizontal" /><b  class=" rangeTxtHigh"  >&gt; 1.2L</b> 
                
         </div>
        
         
      <div class=" col-sm-2 col-md-2 check" style="text-align:center">
-         <a  class="btn btn-block btn-primary btn-raised  " jsf:actionListener="#{schools.filterSearch()}"><i class="fa fa-search"></i> Filter Results</a>
+         <a  class="btn btn-block btn-primary btn-raised  " jsf:actionListener="#{filterResults.filterSearch()}"><i class="fa fa-search"></i> Filter Results</a>
                
         </div>    
         
@@ -256,7 +256,7 @@ ul.as-selections li.as-original input {
                <div class=" col-sm-3   check">
                  <div class="btn-group ">
 
-                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="school_type" jsf:value="#{schools.school_type}">
+                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="school_type" jsf:value="#{filterResults.school_type}">
     School Type<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -275,7 +275,7 @@ ul.as-selections li.as-original input {
           <div class=" col-sm-2   check">
                  <div class="btn-group ">
 
-                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="medium" jsf:value="#{schools.medium}">
+                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="medium" jsf:value="#{filterResults.medium}">
     Medium<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -299,7 +299,7 @@ ul.as-selections li.as-original input {
         
           <div class="checkbox">
                     <label>
-                        <input type="checkbox" class="form-control"  jsf:id="residential" jsf:value="#{schools.residential}" value="" />
+                        <input type="checkbox" class="form-control"  jsf:id="residential" jsf:value="#{filterResults.residential}" value="" />
                         <span class="checkbox-material">
                            <span class="check"></span>
                         </span>
@@ -320,7 +320,7 @@ ul.as-selections li.as-original input {
         <div class="col-sm-4">
         <div class="btn-group ">
 
-            <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="management" jsf:value="#{schools.management}">
+            <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="management" jsf:value="#{filterResults.management}">
     Managed By<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -419,7 +419,9 @@ ul.as-selections li.as-original input {
                          
                          
                         <div class="panel-heading">
-                            <h2 class="panel-title"><h:outputText value="#{school.school_name}" /></h2>
+                            
+                            <h2 class="panel-title" ><form jsf:id="school#{school.school_code}"><h:commandLink action="#{filterResults.viewSchool(school.school_code)}" >#{school.school_name}</h:commandLink></form></h2>
+                            
                             <h5><i class="fa fa-map-marker"></i> <span class="loc"> #{school.location}</span>,  #{school.city}</h5>
                             
                             <div class="schoolRating">
@@ -649,7 +651,9 @@ ul.as-selections li.as-original input {
                          
                          
                         <div class="panel-heading">
-                            <h2 class="panel-title"><h:outputText value="#{school.school_name}" /></h2>
+                            
+                            <h2 class="panel-title" ><form jsf:id="nschool#{school.school_code}"><h:commandLink action="#{filterResults.viewSchool(school.school_code)}" >#{school.school_name}</h:commandLink></form></h2>
+                            
                             <h5><i class="fa fa-map-marker"></i> <span class="loc"> #{school.location}</span>,  #{school.city}</h5>
                             
                             <div class="schoolRating">

@@ -15,9 +15,17 @@ public class DbCon {
 
     public DbCon() {
         
+        if(this.isConnected())
+            Base.close();
+        
+        
          Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/goolschool", "root", "");
          
           
+    }
+    
+    public boolean isConnected(){
+       return Base.hasConnection();
     }
     
     public void closeDb(){
