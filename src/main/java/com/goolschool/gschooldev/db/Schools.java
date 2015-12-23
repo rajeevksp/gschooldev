@@ -48,6 +48,7 @@ public class Schools {
     }
     
     String search_loc = "";
+    int entity_type = 0;
 
     public Schools() {
         
@@ -55,6 +56,17 @@ public class Schools {
          
          
         search_loc = (String) faceletContext.getAttribute("search_loc");
+        
+        System.out.print("params: "+((String) faceletContext.getAttribute("entity"))) ;
+        
+       
+        if(faceletContext.getAttribute("entity").equals("nursery"))
+            entity_type = 1;
+        
+      else
+            entity_type = 0;
+        
+        
         
         System.out.print("initializing schools.. "+search_loc);
         
@@ -84,7 +96,7 @@ public class Schools {
            db = new DbCon();
            
           //List sponsored schools first
-          String final_con = " school_search_info.school_code = school_main_info.school_code AND school_main_info.advertiser_rank < 10";
+          String final_con = " school_search_info.school_code = school_main_info.school_code AND school_main_info.advertiser_rank < 10 AND school_search_info.entity_type = "+entity_type;
         
          if(query_con.length() > 0)
                     final_con= " WHERE "+final_con+" AND ("+query_con+")";
@@ -104,12 +116,12 @@ public class Schools {
             
             //List other schools
             
-          final_con = "";
+          final_con = " (school_search_info.entity_type = "+entity_type+")";
           if(scodes.length() > 0)
-          final_con = " school_search_info.school_code NOT IN("+scodes.substring(0,scodes.length()-1)+")  AND ";
+          final_con = " school_search_info.school_code NOT IN("+scodes.substring(0,scodes.length()-1)+")  AND (school_search_info.entity_type = "+entity_type+")";
         
          if(query_con.length() > 0)
-                    final_con= " WHERE "+final_con+" ("+query_con+")";
+                    final_con= " WHERE "+final_con+" AND ("+query_con+")";
             List<SchoolSearchInfo> school_d2 = SchoolSearchInfo.findBySQL("select * from school_search_info "+final_con+" ORDER BY  ranking DESC,user_ranking DESC LIMIT 0,30");
           
             

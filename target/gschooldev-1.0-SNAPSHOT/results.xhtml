@@ -408,6 +408,7 @@ ul.as-selections li.as-original input {
                  
                  
                  <ui:param name="search_loc" value="#{basicSearch.as_values_location}" />
+                 <ui:param name="entity" value="#{basicSearch.entity}" />
                  <ui:repeat value="#{schools.school}" var="school">
                      
                      <ui:fragment rendered="#{school.sponsored_result eq 1}">
@@ -438,13 +439,13 @@ ul.as-selections li.as-original input {
                                      
                                       <div class="col-sm-9 col-xs-9">
                                          <div class="row">
-                                             <div class="col-xs-5">Board: <b>
+                                             <div class="col-xs-4">Board: <b>
                                                      <ui:repeat value="#{schools.stringToList(school.board)}" var="board">
                                                          <a href="#{board.str}">#{board.str}</a>#{board.trail}
                                                   </ui:repeat>    
                                                      
                                                  </b></div>
-                                             <div class="col-xs-5">Medium: <b>
+                                             <div class="col-xs-6">Medium: <b>
                                                      <ui:repeat value="#{schools.stringToList(school.medium)}" var="medium">
                                                          <a href="#{schools.getMedium(medium.str)}">#{schools.getMedium(medium.str)}</a>#{medium.trail}
                                                   </ui:repeat>    
@@ -454,8 +455,8 @@ ul.as-selections li.as-original input {
                                            
                                          </div>
                                           <div class="row">
-                                              <div class="col-xs-5"><i class="fa fa-phone"></i> #{school.school_contact}</div>
-                                              <div class="col-xs-5"><i class="fa fa-envelope"></i> #{school.school_email}</div>
+                                              <div class="col-xs-4"><i class="fa fa-phone"></i> #{school.school_contact}</div>
+                                              <div class="col-xs-6"><i class="fa fa-envelope"></i> #{school.school_email}</div>
                                               <div class="col-xs-2"><i class="fa fa-link "></i> <a href="http://#{school.school_website}"> Visit</a></div>
                                            
                                          </div>
@@ -670,13 +671,13 @@ ul.as-selections li.as-original input {
                                      
                                       <div class="col-sm-9 col-xs-9">
                                          <div class="row">
-                                             <div class="col-xs-5">Board: <b>
+                                             <div class="col-xs-4">Board: <b>
                                                      <ui:repeat value="#{schools.stringToList(school.board)}" var="board">
                                                          <a href="#{board.str}">#{board.str}</a>#{board.trail}
                                                   </ui:repeat>    
                                                      
                                                  </b></div>
-                                             <div class="col-xs-5">Medium: <b>
+                                             <div class="col-xs-6">Medium: <b>
                                                      <ui:repeat value="#{schools.stringToList(school.medium)}" var="medium">
                                                          <a href="#{schools.getMedium(medium.str)}">#{schools.getMedium(medium.str)}</a>#{medium.trail}
                                                   </ui:repeat>    
@@ -686,8 +687,8 @@ ul.as-selections li.as-original input {
                                            
                                          </div>
                                           <div class="row">
-                                              <div class="col-xs-5"><i class="fa fa-phone"></i> #{school.school_contact}</div>
-                                              <div class="col-xs-5"><i class="fa fa-envelope"></i> #{school.school_email}</div>
+                                              <div class="col-xs-4"><i class="fa fa-phone"></i> #{school.school_contact}</div>
+                                              <div class="col-xs-6"><i class="fa fa-envelope"></i> #{school.school_email}</div>
                                               <div class="col-xs-2"><i class="fa fa-link "></i> <a href="http://#{school.school_website}"> Visit</a></div>
                                            
                                          </div>

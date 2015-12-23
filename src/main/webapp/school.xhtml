@@ -679,7 +679,8 @@
                              
                             <br />
                               <ui:fragment rendered="#{schoolInfo.transport_areas != ''}">
-                                  <iframe width="100%" height="240px" frameborder="0" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed/v1/directions?origin=${schoolInfo.location}&destination=${schoolInfo.school_name},${schoolInfo.location},${schoolInfo.city},${schoolInfo.district_pin}&waypoints=${schoolInfo.areasMap(schoolInfo.transport_areas)}"></iframe>                   
+                                  <iframe width="100%" height="240px" frameborder="0" marginheight="0" marginwidth="0" src="#{schoolInfo.map_url}"></iframe>  
+                                   
                               </ui:fragment>    
                           
                         </div>

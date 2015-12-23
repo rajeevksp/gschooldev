@@ -137,10 +137,41 @@
             <!-- Textfield with Floating Label -->
 
             <form class="bs-component" jsf:id="basic_search"  >
+           
+                
+           <div class="input-group">
+               
+               <div class="col-sm-4">
+                   <div class="radio  radio-primary">
+  <label>
+      <input type="radio"  name="entity_type" checked="checked" onclick="$('input.entity_type').val($(this).val());('input.school_entity').val($(this).val());" value="school" />
+   School
+  </label>
+</div>
+                  
+               </div>    
+               <div class="col-sm-4">
+                    <div class="radio  radio-primary">
+  <label>
+      <input type="radio"   name="entity_type" value="nursery" onclick="$('input.entity_type').val($(this).val());('input.school_entity').val($(this).val());"/>
+   Nursery
+  </label>
+</div>
+                      
+               </div>
+               <div class="col-sm-4"></div>
+               
+               <input type="hidden" name="entity" class="entity_type"  jsf:id="entity" value="#{basicSearch.entity}" />
+ 
+    </div>       
+                
 <div class="input-group">
 
+  
+     
+ 
 <div class="form-control-wrapper">
-<input id="focusedInput"  class="form-control "   type="text" />
+<input id="focusedInput"  class="form-control"   type="text" />
 
 </div>
     <input type="hidden" id="prefill" value="" />    
@@ -209,18 +240,17 @@
           
          <div class="col-md-12 col-sm-12 ">
        
-          
+               <form class="bs-component" jsf:id="userSearchForm"> 
            
             <div  id="personalized_search1" class="personalized_search">
            
-               <form class="bs-component">
+                <input type="hidden" name="school_entity" id="school_entity" value="school"/>
 <div class="form-group">
 
-<div class="form-control-wrapper">
-<input id="focusedInput" class="form-control empty"  type="text" />
+    <div class="form-control-wrapper userLoc" data-content="Please fill your Location details" data-trigger="focus" onclick="$('.userLoc').popover('hide');">
+<input id="userLocation" class="form-control "  type="text" />
 
-<div class="floating-label">Type in Locality or School Name</div>
-<span class="material-input"></span>
+ 
 </div>
 
 </div>
@@ -231,26 +261,27 @@
 <div class="form-group">
       <div class="btn-group ">
 
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" >
     Target Class / Standard <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">Kindergarten</a></li>
-    <li><a href="#">Class 1</a></li>
-    <li><a href="#">Class 2</a></li>
-    <li><a href="#">Class 3</a></li>
-    <li><a href="#">Class 4</a></li>
-    <li><a href="#">Class 5</a></li>
-    <li><a href="#">Class 6</a></li>
-    <li><a href="#">Class 7</a></li>
-    <li><a href="#">Class 8</a></li>
-    <li><a href="#">Class 9</a></li>
-    <li><a href="#">Class 10</a></li>
-    <li><a href="#">Class 11</a></li>
-    <li><a href="#">Class 12</a></li>
+  <ul class="dropdown-menu target_class">
+    <li><a >Kindergarten</a></li>
+    <li><a >Class 1</a></li>
+    <li><a >Class 2</a></li>
+    <li><a >Class 3</a></li>
+    <li><a >Class 4</a></li>
+    <li><a >Class 5</a></li>
+    <li><a >Class 6</a></li>
+    <li><a >Class 7</a></li>
+    <li><a >Class 8</a></li>
+    <li><a >Class 9</a></li>
+    <li><a >Class 10</a></li>
+    <li><a >Class 11</a></li>
+    <li><a >Class 12</a></li>
    
   </ul>
 </div>
+    <input type="hidden" name="target_class" id="target_class" value="" />
 </div>
 </div>
 
@@ -260,17 +291,19 @@
 <div class="form-group">
 <div class="btn-group ">
 
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" >
     Board of Education <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">CBSE</a></li>
-    <li><a href="#">ICSE</a></li>
-    <li><a href="#">IB</a></li>
-    <li><a href="#">State Board</a></li>
+  <ul class="dropdown-menu target_board">
+    <li><a >CBSE</a></li>
+    <li><a >ICSE</a></li>
+    <li><a >IB</a></li>
+    <li><a >State Board</a></li>
   
   </ul>
 </div>
+    
+    <input type="hidden" name="board" id="board" value="" />
 </div>
 
 </div>
@@ -285,7 +318,7 @@
             <div class="col-sm-12 col-xs-12">
           <b class="rangeTxtLow"  >12000</b>
            
-         <input type="text" id="fee_range"   value=""   data-slider-min="12000" data-slider-max="120000" data-slider-step="2000" data-slider-value="[24000,48000]" data-slider-orientation="horizontal" />
+          <input type="text" id="fee_range" name="fee_range"        data-slider-min="12000" data-slider-max="120000" data-slider-step="2000" data-slider-value="[24000,48000]" data-slider-orientation="horizontal" />
           
              <b  class=" rangeTxtHigh"  > &gt; 120000</b> 
              </div>
@@ -299,7 +332,7 @@
 <div class="col-md-4 col-xs-12">
  <div class="radio radio-primary">
                                                 <label>
-                                                    <input type="radio" checked="checked" value="option1" id="optionsRadios1" name="optionsRadios"  /><span class="circle"></span><span class="check"></span>
+                                                    <input type="radio" checked="checked" value="3"   name="school_type"  /> 
                                                     Co-Education
                                                 </label>
                                             </div>
@@ -307,7 +340,7 @@
 <div class="col-md-4 col-xs-12">
  <div class="radio radio-primary">
                                                 <label>
-                                                    <input type="radio"  value="option1" id="optionsRadios1" name="optionsRadios" /><span class="circle"></span><span class="check"></span>
+                                                    <input type="radio"  value="2"     name="school_type" /> 
                                                     Boys School
                                                 </label>
                                             </div>
@@ -315,12 +348,13 @@
 <div class="col-md-4 col-xs-12">
  <div class="radio radio-primary">
                                                 <label>
-                                                    <input type="radio"  value="option1" id="optionsRadios1" name="optionsRadios" /><span class="circle"></span><span class="check"></span>
+                                                    <input type="radio"  value="1"   name="school_type" /> 
                                                     Girls School
                                                 </label>
                                             </div>
 </div>
 
+     
 
 </div>
 
@@ -329,35 +363,36 @@
        
        <div class="form-group">
        
-        <a class="btn btn-warning btn-raised btn-lg" onClick="formNav('next')">Next <i class="fa fa-arrow-right"></i></a>
+        <a class="btn btn-warning btn-raised btn-lg" onClick="if($('#as-values-userLocation').val().length > 1){formNav('next');}else{$('.userLoc').popover('show');}">Next <i class="fa fa-arrow-right"></i></a>
        
        </div> 
-</form>
+
                
                
            </div>
             
            <div id="personalized_search2" class="item personalized_search">
             
-               <form class=" bs-component">
+            
     <fieldset>
      
-        <div class="form-group">
+        <div class="form-group full_name" data-content="Please fill your full name" data-trigger="focus" onclick="$(this).popover('hide');">
            
-                <input class="form-control  floating-label" placeholder="Your Full Name" />
+            <input class="form-control  floating-label" placeholder="Your Full Name" name="full_name"   />
                 
            
         </div>
-        <div class="form-group">
+        <div class="form-group ">
          
-        <div class="col-sm-7 email"><input class="form-control floating-label" id="inputEmail" placeholder="Email" type="email" />
+        <div class="col-sm-7 email" data-content="Please Enter a valid email id" data-trigger="focus" onclick="$(this).popover('hide');">
+            <input class="form-control floating-label" name="user_email" id="inputEmail" placeholder="Email" type="email"   />
            
         </div>
          <div class="col-sm-1">
                
              </div>
-          <div class="col-sm-4 mobile">
-               <input class="form-control floating-label" id="inputMobile" placeholder="Mobile" type="phone" />
+          <div class="col-sm-4 mobile" data-content="Please Enter a valid mobile number" data-trigger="focus" onclick="$(this).popover('hide');">
+              <input class="form-control floating-label" name="user_mobile"   placeholder="Mobile" type="phone"   />
             
         </div>
         </div>
@@ -370,7 +405,7 @@
             <div class="col-sm-12 col-xs-12">
           <b class="rangeTxtLow"  >8000</b>
            
-         <input type="text" id="salary_range"   value=""   data-slider-min="8000" data-slider-max="60000" data-slider-step="2000" data-slider-value="[20000,40000]" data-slider-orientation="horizontal" />
+          <input type="text" id="salary_range" name="salary_range"      data-slider-min="8000" data-slider-max="60000" data-slider-step="2000" data-slider-value="[20000,40000]" data-slider-orientation="horizontal" />
           
              <b  class=" rangeTxtHigh"  > &gt; 60000</b> 
              </div>
@@ -384,19 +419,19 @@
           
                 <div class="radio radio-primary">
                     <label>
-                        <input name="optionsRadios" id="optionsRadios1" value="option1" onClick="if($(this).is(':checked')){ $('#sibling_school').slideDown('slow');}"  type="radio" />
+                        <input name="anotherChild"   value="1" onClick="if($(this).is(':checked')){ $('#sibling_school').slideDown('slow');}"  type="radio" />
                         Yes
                     </label>
                 
                     <label>
-                        <input name="optionsRadios"  id="optionsRadios2" checked="" value="option2" onClick="if($(this).is(':checked')){ $('#sibling_school').slideUp('slow');}" type="radio" />
+                        <input name="anotherChild"   checked="" value="0" onClick="if($(this).is(':checked')){ $('#sibling_school').slideUp('slow');}" type="radio" />
                         No
                     </label>
                 </div>
                 
                 <div style="display:none;" id="sibling_school">
             
-               <input class="form-control floating-label" id="inputSchool" placeholder="School Name" type="text" />
+                    <input class="form-control floating-label" id="inputSchool" name="sibling_school" placeholder="School Name"    type="text" />
             
         
             </div>
@@ -407,7 +442,7 @@
               <div class=" col-sm-4 check">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" class="form-control" />
+                        <input type="checkbox" class="form-control" name="transportation"   value="true" />
                         <span class="checkbox-material">
                            <span class="check"></span>
                         </span>
@@ -421,7 +456,7 @@
                 <div class=" col-sm-7 check">
                  <div class="checkbox">
                     <label>
-                        <input type="checkbox"  class="form-control" /> 
+                        <input type="checkbox"  class="form-control" name="reservation"   value="true" /> 
                         <span class="checkbox-material" >
                            <span class="check" />
                         </span>
@@ -436,8 +471,9 @@
               
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" checked=""  class="form-control" /> <span class="checkbox-material" >
-                           <span class="check"></span>
+                        <input type="checkbox" checked="checked" name="job_transferable"  value="true"   class="form-control" /> 
+                         <span class="checkbox-material" >
+                           <span class="check" />
                         </span>
                          My Job is Transferable
                     </label>
@@ -449,8 +485,9 @@
               
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" checked=""  class="form-control" /> <span class="checkbox-material" >
-                           <span class="check"></span>
+                        <input type="checkbox" checked="checked"  class="form-control"   name="accept_terms"  value="true" />  
+                          <span class="checkbox-material" >
+                           <span class="check" />
                         </span>
                           I agree the <a href="#">Terms &amp; Conditions</a> and read the <a href="#">Privacy Policy</a>
                     </label>
@@ -461,16 +498,20 @@
         </div>
         <div class="form-group" style="text-align:center">
                 <a class="btn btn-default btn-raised btn-lg" onClick="formNav('back')">Back</a>
-                <a  class="btn btn-primary btn-raised btn-lg">Submit</a>
+                <h:commandLink  class="btn btn-primary btn-raised btn-lg" onclick="return validateUser()"   action="#{basicSearch.submitUserSearch()}">Submit</h:commandLink>
+            
+        </div>
+        
+        <div id="errVal" style="display:none;">
             
         </div>
     </fieldset>
-</form>
+
                
                
            </div>
     
-          
+      </form>    
           
          
          

@@ -304,6 +304,20 @@ $(".dropdown-menu li a").click(function(){
 
 	 $("#focusedInput").autoSuggest("http://localhost:8080/gschooldev/webresources/autoComplete", {minChars: 1, matchCase: false, asHtmlID:'location', selectedItemProp: "name",selectionLimit:2, searchObjProps: "value,name", selectedValuesProp: "value", preFill: $('#prefill').val()});
 
+
+ $("#userLocation").autoSuggest("http://localhost:8080/gschooldev/webresources/autoComplete", {minChars: 1, matchCase: false, asHtmlID:'userLocation', selectedItemProp: "name",selectionLimit:1, searchObjProps: "value,name", selectedValuesProp: "value"});
+
+
+$(".target_class li").click(function() {
+    $("#target_class").val($(this).text());
+});
+
+
+$(".target_board li").click(function() {
+    $("#board").val($(this).text());
+});
+
+
 }();
 
 
@@ -331,4 +345,42 @@ function formNav(dir){
         else if (dir == "back"){
        $('#personalized_search_head').html('<h2>Search Parameters</h2><p>Search and find best school which suits your requirement.</p>');$('#personalized_search2').fadeOut(300,function (){$('#personalized_search1').fadeIn();});
         }
+}
+
+
+function validateUser(){
+    
+    var ret = true;
+    
+    if($('.full_name input').val().length == 0){
+       $('.full_name').popover('show');
+        ret  = false;
+    }
+    
+    if($('.email input').val().length > 0){
+       if(!validateEmail($('.email input').val())) {
+           $('.email').popover('show');
+           ret  = false;
+       }
+    }
+     
+    if($('.mobile input').val().length > 0){
+       if(!validateMobile($('.mobile input').val())) {
+           $('.mobile').popover('show');
+            ret  = false;
+       }
+    }
+    return ret;
+}
+
+function validateEmail(email) 
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function validateMobile(mobile) 
+{
+    var mob = /^[7-9]{1}[0-9]{9}$/;
+    return mob.test(mobile);
 }

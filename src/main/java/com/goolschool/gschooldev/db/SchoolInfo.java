@@ -325,14 +325,15 @@ public class SchoolInfo  {
                
                
                this.extra_curricular_activities = schoolFacilities(school_code,"extra_curricular_activities").getVal();
-                this.sports_activities = schoolFacilities(school_code,"sports_activities").getVal();
-                 this.transport_areas = schoolFacilities(school_code,"transportation").getVal();
+               this.sports_activities = schoolFacilities(school_code,"sports_activities").getVal();
+               this.transport_areas = schoolFacilities(school_code,"transportation").getVal();
                
                  
                  
                  
-                 this.map_url ="https://www.google.com/maps/embed/v1/directions?origin="+location+"&destination="+school_name+","+location+","+city+","+district_pin+"&waypoints="+areasMap(transport_areas);
-                 
+               this.map_url ="https://www.google.com/maps/embed/v1/directions?zoom=12&origin="+location+"&destination="+school_name+","+location+","+city+","+district_pin+"&waypoints="+areasMap(transport_areas)+"&key=AIzaSyD0wzIkFk79DCKaqn5-sjNgjsngtHQSeRM";
+              
+               
        }
         
         
@@ -733,7 +734,7 @@ public class SchoolInfo  {
         return list_str;
     }
     
-
+    
     public String areasMap(String areas){
         
         
@@ -744,7 +745,7 @@ public class SchoolInfo  {
           for(String rt:route){
               
               
-              map+= rt+",+"+city+",+"+state+"|";
+              map+= rt+",+"+city+",+"+state+"/";
               
           }
         

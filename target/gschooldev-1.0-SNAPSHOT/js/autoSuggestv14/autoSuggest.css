@@ -132,7 +132,11 @@ ul.as-selections li.as-original input {
         
 }
 
-.form-group .form-control:focus{
+.userLoc ul.as-selections li.as-original input{
+    color:#333;
+}
+ 
+#userLocation{
     background:none;
 }
 ul.as-list {
