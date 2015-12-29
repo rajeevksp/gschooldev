@@ -33,6 +33,26 @@ public class SearchResults {
     private String school_email;
     private String school_website;
     private int sponsored_result;
+    private String lat_str;
+    private String long_str;
+
+    public String getLat_str() {
+        return lat_str;
+    }
+
+    public void setLat_str(String lat_str) {
+        this.lat_str = lat_str;
+    }
+
+    public String getLong_str() {
+        return long_str;
+    }
+
+    public void setLong_str(String long_str) {
+        this.long_str = long_str;
+    }
+
+  
 
     public int getSponsored_result() {
         return sponsored_result;

@@ -37,10 +37,10 @@ public class BasicSearch implements Serializable{
     private String entity;
     
     private String user_location;
-    private String target_class;
-    private String board;
-    private String fee_range;
-    private String school_type;
+    private String target_class = "";
+    private String board = "";
+    private String fee_range = "";
+    private String school_type = "";
     private String user_fullname;
     private String user_email;
     private String user_mobile;
@@ -48,11 +48,55 @@ public class BasicSearch implements Serializable{
     
  
     private String elder_child_name;
-    private boolean transportation;
-    private boolean reservation;
-    private boolean job_transferable;
-    private boolean accept_terms;
-    
+    private int transportation = 1;
+    private int reservation = 0;
+    private int job_transferable = 0;
+    private int accept_terms = 0;
+    private String standard;
+    private int medium = 1;
+    private int playground = 0;
+    private int residential = 0;
+    private int management = 1;
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public int getMedium() {
+        return medium;
+    }
+
+    public void setMedium(int medium) {
+        this.medium = medium;
+    }
+
+    public int isPlayground() {
+        return playground;
+    }
+
+    public void setPlayground(int playground) {
+        this.playground = playground;
+    }
+
+    public int isResidential() {
+        return residential;
+    }
+
+    public void setResidential(int residential) {
+        this.residential = residential;
+    }
+
+    public int getManagement() {
+        return management;
+    }
+
+    public void setManagement(int management) {
+        this.management = management;
+    }
 
     public String getUser_location() {
         return user_location;
@@ -135,35 +179,35 @@ public class BasicSearch implements Serializable{
         this.elder_child_name = elder_child_name;
     }
 
-    public boolean getTransportation() {
+    public int getTransportation() {
         return transportation;
     }
 
-    public void setTransportation(boolean transportation) {
+    public void setTransportation(int transportation) {
         this.transportation = transportation;
     }
 
-    public boolean getReservation() {
+    public int getReservation() {
         return reservation;
     }
 
-    public void setReservation(boolean reservation) {
+    public void setReservation(int reservation) {
         this.reservation = reservation;
     }
 
-    public boolean getJob_transferable() {
+    public int getJob_transferable() {
         return job_transferable;
     }
 
-    public void setJob_transferable(boolean job_transferable) {
+    public void setJob_transferable(int job_transferable) {
         this.job_transferable = job_transferable;
     }
 
-    public boolean getAccept_terms() {
+    public int getAccept_terms() {
         return accept_terms;
     }
 
-    public void setAccept_terms(boolean accept_terms) {
+    public void setAccept_terms(int accept_terms) {
         this.accept_terms = accept_terms;
     }
     
@@ -241,16 +285,16 @@ public class BasicSearch implements Serializable{
        this.board = requestParams.get("board").trim();
       
        if(requestParams.containsKey("transportation"))
-           this.transportation = true;
+           this.transportation = 1;
        
        if(requestParams.containsKey("job_transferable"))
-           this.job_transferable = true;
+           this.job_transferable = 1;
        
          if(requestParams.containsKey("accept_terms"))
-           this.accept_terms = true;
+           this.accept_terms = 1;
         
         if(requestParams.containsKey("reservation"))
-           this.reservation = true;
+           this.reservation = 1;
         
         if(requestParams.containsKey("anotherChild"))
            this.elder_child_name =requestParams.get("sibling_school").trim();
@@ -271,27 +315,12 @@ public class BasicSearch implements Serializable{
        DbCon db = new DbCon();
        
        int entity_type = 0;
-       int transport = 0;
-       int job = 0;
-       int terms = 0;
-       int reserve = 0;
+      
+       
        if(entity.equals("nursery"))
            entity_type = 1;
        
-       if(job_transferable)
-           job = 1;
        
-        
-       if(accept_terms)
-           terms = 1;
-       
-        
-       if(reservation)
-           reserve = 1;
-       
-        
-       if(transportation)
-           transport = 1;
        
           //is client behind something?
        
@@ -320,9 +349,9 @@ String currentTime = sdf.format(dt);
          searchData.set("user_mobile",user_mobile);
          searchData.set("user_salary",user_salary);
          searchData.set("user_sibling",elder_child_name);
-         searchData.set("user_job_transferable",job);
-         searchData.set("search_transport",transport);
-         searchData.set("search_reservation",reserve);
+         searchData.set("user_job_transferable",job_transferable);
+         searchData.set("search_transport",transportation);
+         searchData.set("search_reservation",reservation);
          searchData.set("user_ip",ipAddress);
          searchData.set("timestamp",currentTime);
        

@@ -165,7 +165,7 @@ ul.as-selections li.as-original input {
            <div class=" col-sm-5 col-md-5 check">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" class="form-control" jsf:id="transportation" jsf:value="#{filterResults.transportation}" value="" />
+                        <input type="checkbox" class="form-control" jsf:id="transportation"   value="" />
                         <span class="checkbox-material">
                            <span class="check"></span>
                         </span>
@@ -173,7 +173,7 @@ ul.as-selections li.as-original input {
                     </label>
                 &#160;&#160;
                     <label>
-                        <input type="checkbox" class="form-control" jsf:id="reservation" jsf:value="#{filterResults.reservation}" value=""/>
+                        <input type="checkbox" class="form-control" jsf:id="reservation"  value=""/>
                         <span class="checkbox-material">
                            <span class="check"></span>
                         </span>
@@ -214,7 +214,7 @@ ul.as-selections li.as-original input {
    <div class=" col-sm-2   check">
                  <div class="btn-group ">
 
-                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="board" jsf:value="#{filterResults.board}">
+                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="board" jsf:value="#{basicSearch.board}">
     Board of Education<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -236,13 +236,17 @@ ul.as-selections li.as-original input {
            
        <b class="rangeTxtLow"  >12K</b>
            
-       <input type="text" id="fee_range"  jsf:id="fee_yearly" jsf:value="#{filterResults.fee_yealry}"  value=""   data-slider-min="12000" data-slider-max="120000" data-slider-step="2000" data-slider-value="[24000,48000]" data-slider-orientation="horizontal" /><b  class=" rangeTxtHigh"  >&gt; 1.2L</b> 
+       <input type="text" id="fee_range"  jsf:id="fee_yearly" jsf:value="#{basicSearch.fee_range}"  value=""   data-slider-min="12000" data-slider-max="120000" data-slider-step="2000" data-slider-value="[24000,48000]" data-slider-orientation="horizontal" /><b  class=" rangeTxtHigh"  >&gt; 1.2L</b> 
                
         </div>
        
         
      <div class=" col-sm-2 col-md-2 check" style="text-align:center">
-         <a  class="btn btn-block btn-primary btn-raised  " jsf:actionListener="#{filterResults.filterSearch()}"><i class="fa fa-search"></i> Filter Results</a>
+         <f:ajax execute="fee_yearly transportation reservation board standard as_values_location school_type medium residential management" render="panelResults" >
+         <h:commandLink  class="btn btn-block btn-primary btn-raised  " action="#{schools.filterResults()}">
+           
+             <i class="fa fa-search"></i> Filter Results</h:commandLink>
+         </f:ajax>
                
         </div>    
         
@@ -256,7 +260,7 @@ ul.as-selections li.as-original input {
                <div class=" col-sm-3   check">
                  <div class="btn-group ">
 
-                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="school_type" jsf:value="#{filterResults.school_type}">
+                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="school_type" jsf:value="#{basicSearch.school_type}">
     School Type<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -275,19 +279,17 @@ ul.as-selections li.as-original input {
           <div class=" col-sm-2   check">
                  <div class="btn-group ">
 
-                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="medium" jsf:value="#{filterResults.medium}">
+                     <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="medium" jsf:value="#{basicSearch.medium}">
     Medium<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li><a href="#"></a></li>
-    <li><a href="#">English</a></li>
-    <li><a href="#">Hindi</a></li>
-    <li><a href="#">Telugu</a></li>
-  <li><a href="#">Tamil</a></li>
-  <li><a href="#">Malayalam</a></li>
-  <li><a href="#">Marathi</a></li>
-  <li><a href="#">Gujarathi</a></li>
-  <li><a href="#">Bengali</a></li>
+      <li><a href="#"></a></li>
+      <ui:repeat value="#{instructionMed.mediumList()}" var="medium">
+          <li><a href="#{medium.uid}">#{medium.medium}</a></li>
+       </ui:repeat>
+      
+    
+    
   </ul>
 </div> 
         
@@ -299,7 +301,7 @@ ul.as-selections li.as-original input {
         
           <div class="checkbox">
                     <label>
-                        <input type="checkbox" class="form-control"  jsf:id="residential" jsf:value="#{filterResults.residential}" value="" />
+                        <input type="checkbox" class="form-control"  jsf:id="residential"  value="" />
                         <span class="checkbox-material">
                            <span class="check"></span>
                         </span>
@@ -320,7 +322,7 @@ ul.as-selections li.as-original input {
         <div class="col-sm-4">
         <div class="btn-group ">
 
-            <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="management" jsf:value="#{filterResults.management}">
+            <button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown"  jsf:id="management" jsf:value="#{basicSearch.management}">
     Managed By<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -348,7 +350,7 @@ ul.as-selections li.as-original input {
                    </div>
                    <div class="col-sm-2">
                     <a  class="btn   btn-default btn-raised btn-xs"><i class="fa fa-refresh"></i> Clear</a>
-         <a  class="btn  btn-warning btn-raised   btn-xs" id="moreBtn" onClick="$('#moreFilters').slideToggle('fast',function(){ $('#moreBtn i').toggleClass('fa-minus')})"><i class="fa fa-plus"></i> More</a>
+         <a  class="btn  btn-warning btn-raised   btn-xs" id="moreBtn" onClick="$('#moreFilters').slideToggle('slow',function(){ $('#moreBtn i').toggleClass('fa-minus')})"><i class="fa fa-plus"></i> More</a>
         
                    </div>
                    <div class="col-sm-5">
@@ -397,8 +399,10 @@ ul.as-selections li.as-original input {
                  </div>
                  <div class="pull-right">
                  <div class="btn-group" role="group" aria-label="Toggle View">
-                   <a href="javascript:void(0)" class="btn btn-primary btn-xs"><i class="fa fa-list"></i></a>
-                   <a href="javascript:void(0)" class="btn btn-default btn-xs"><i class="fa fa-map"></i></a>
+                       <form jsf:id="toggleMap">
+                   <h:commandLink  class="btn btn-primary btn-xs" action="results.xhtml"><i class="fa fa-list"></i></h:commandLink>
+                   <h:commandLink   class="btn btn-default btn-xs" action="mapresults.xhtml"><i class="fa fa-map"></i></h:commandLink>
+                       </form>
                    </div>
                  </div>
                  <div style="clear:both"></div>
@@ -409,6 +413,19 @@ ul.as-selections li.as-original input {
                  
                  <ui:param name="search_loc" value="#{basicSearch.as_values_location}" />
                  <ui:param name="entity" value="#{basicSearch.entity}" />
+                 <ui:param name="school_type" value="#{basicSearch.school_type}" />
+                 <ui:param name="target_class" value="#{basicSearch.target_class}" />
+                 <ui:param name="fee_yearly" value="#{basicSearch.fee_range}" />
+                  
+                 <ui:param name="salary_range" value="#{basicSearch.user_salary}" />
+                 <ui:param name="job_transferable" value="#{basicSearch.job_transferable}" />
+                 <ui:param name="transportation" value="#{basicSearch.transportation}" />
+                 <ui:param name="reservation" value="#{basicSearch.reservation}" />
+                 <ui:param name="sibling_school" value="#{basicSearch.elder_child_name}" />
+                 <ui:param name="school_board" value="#{basicSearch.board}" />
+                  
+                  
+                  <h:panelGroup id="panelResults">
                  <ui:repeat value="#{schools.school}" var="school">
                      
                      <ui:fragment rendered="#{school.sponsored_result eq 1}">
@@ -879,7 +896,7 @@ ul.as-selections li.as-original input {
                      
                  </ui:repeat>
     
-      
+                  </h:panelGroup>
              </div>
              
              <div class="col-md-4 col-sm-8">

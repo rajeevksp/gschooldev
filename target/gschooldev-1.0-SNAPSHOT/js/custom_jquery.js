@@ -318,6 +318,7 @@ $(".target_board li").click(function() {
 });
 
 
+initialize();
 }();
 
 
@@ -384,3 +385,85 @@ function validateMobile(mobile)
     var mob = /^[7-9]{1}[0-9]{9}$/;
     return mob.test(mobile);
 }
+
+ function viewSchool( schoolcode){
+     alert(schoolcode);
+     //$('#hdnBtn_'+schoolcode).click();
+ }
+var geocoder;
+  var map;
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(17.3700, 78.4800);
+    var mapOptions = {
+      zoom: 14,
+      center: latlng,
+       mapTypeId : google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("mapPointers"), mapOptions);
+    
+    initMap();
+}
+
+ function initMap(){
+     
+ var addr = document.getElementById("prefill").value;
+  // addr_list = addr.split(",");
+   
+   var address = addr;
+ 
+    var position;
+ 
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        
+            map.setCenter(results[0].geometry.location);
+       
+            
+            position = results[0].geometry.location;
+       
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  
+     
+    
+      var infowindow = new google.maps.InfoWindow();
+        
+        
+    $('.latlong').each(function (index){
+   
+  
+  
+     var image = 'images/pointer.png';
+      if($(this).children(".sponsored_result").val() == 1)
+          image = 'images/sponsored_pointer.png';
+         
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(parseFloat($(this).children(".lat_str").val()),parseFloat($(this).children(".long_str").val())),
+            map: map,
+            title: $(this).children('.school_name').val(),
+            icon: image
+        });
+        
+    school_name =  $(this).children('.school_name').val();
+    mapcontent = $(this).children('.map_content').val();
+    school_code = $(this).children('.school_code').val();
+   
+   marker.content = '<div class="map_content"><h5  class="map_heading" onClick="viewSchool(\''+school_code.trim()+'\');">'+school_name+'</h5><div class="map_body">'+mapcontent+'</div></div>' ;
+
+  google.maps.event.addListener(marker,'mouseover', (function(marker,mapcontent,infowindow){ 
+        return function() {
+          
+           infowindow.setContent( marker.content);
+           infowindow.open(map,marker);
+        };
+    })(marker,content,infowindow)); 
+
+    });
+    
+    
+ }
+ 
+ 

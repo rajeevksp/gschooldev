@@ -141,9 +141,18 @@ font-weight:400;
 }
 .panel-title a,.panel-title a:hover,.panel-title a:active{
     text-decoration: none;
+    color:#eee;
+}
+
+.panel-primary .panel-title a:hover,.panel-primary .panel-title a:active{
+    text-decoration: none;
     color:#fff;
 }
 
+.panel-default .panel-title a{
+    text-decoration: none;
+    color:#333;
+}
  .panel-body{
 	padding-top:10px;
 }
@@ -310,7 +319,18 @@ font-weight:400;
 	text-align:center;
 	
 }
-.schoolProfilePic img{
+
+.mschoolProfilePic{
+ border:1px solid #fff;
+	 background:#fff;
+	 width:80px;
+	 height:80px;
+	 line-height:80px;
+	 margin:2px auto;
+	text-align:center;
+}
+
+.schoolProfilePic img,.mschoolProfilePic img{
 	 width:100%;
 	 height:auto;
 	vertical-align: middle;
@@ -458,3 +478,26 @@ font-weight:400;
 }
 
 
+.map_content{
+    
+    
+}
+
+.map_heading{
+    padding:0;
+    margin:0;
+    color:#00b7c3;
+}
+
+.map_body{
+    padding:2px;
+    margin:0px;
+}
+
+.schoolMapView{
+    display:none;
+    position:relative;
+    right:0;
+    bottom:0;
+    width:30%;
+}

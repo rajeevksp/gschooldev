@@ -14,12 +14,15 @@ import entity.SchoolSearchInfo;
  
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
  
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
  
 import javax.faces.context.FacesContext;
 import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Named;
+import org.json.simple.JSONObject;
  
 
 /**
@@ -37,7 +40,18 @@ public class Schools {
  
     DbCon db;
     
-   
+    String search_loc = "";
+    int entity_type = 0;
+     private String standard;
+    private int medium = 1;
+    private String fee_yealry = "";
+    private String school_board ="";
+    private int school_type = 0;
+    private int transportation = 0;
+    private int reservation = 0;
+    private int playground  = 0;
+    private int residential = 0;
+    private int management = 0;
     
     public List<StringList> getStrlist() {
         return strlist;
@@ -47,8 +61,7 @@ public class Schools {
         this.strlist = strlist;
     }
     
-    String search_loc = "";
-    int entity_type = 0;
+    
 
     public Schools() {
         
@@ -59,6 +72,9 @@ public class Schools {
         
         System.out.print("params: "+((String) faceletContext.getAttribute("entity"))) ;
         
+        
+        
+        
        
         if(faceletContext.getAttribute("entity").equals("nursery"))
             entity_type = 1;
@@ -67,8 +83,22 @@ public class Schools {
             entity_type = 0;
         
         
+       ExternalContext context = FacesContext.getCurrentInstance().getExternalContext(); 
+       
+        Map<String,String> requestParams = context.getRequestParameterMap();
         
-        System.out.print("initializing schools.. "+search_loc);
+        
+        standard = faceletContext.getAttribute("target_class").toString();
+
+        fee_yealry = faceletContext.getAttribute("fee_yearly").toString();
+        
+        
+        if(requestParams.containsKey("school_board"))
+                school_board = requestParams.get("school_board");
+        
+        
+        
+        System.out.print("initializing schools.. "+search_loc+ " - "+standard+" - "+school_board);
         
         String[] parts = search_loc.split(",");
         
@@ -142,6 +172,12 @@ public class Schools {
     }
 
     
+    public List<SearchResults> filterResults(){
+        
+        System.out.print("Filtering results");
+        
+        return school;
+    }
     
     
     public SearchResults schoolInfo(SchoolSearchInfo school_data,int sponsored){
@@ -184,6 +220,19 @@ public class Schools {
                  search_res.setEst_year(school_main.getString("establishment_year"));
                  
                  
+                  
+                 
+                 if(school_main.getDouble("latitude") > 0 && school_main.getDouble("latitude") > 0){
+                     
+                   search_res.setLat_str(school_main.getDouble("latitude").toString());
+                   search_res.setLong_str(school_main.getDouble("longitude").toString());                   
+                    
+                 }
+                 else{
+                      search_res.setLat_str(school_main.getString("address_line_1")+","+school_main.getString("address_line_2")+","+school_main.getString("location")+","+school_main.getString("city"));
+                  search_res.setLong_str(school_main.getString("address_line_1")+","+school_main.getString("address_line_2")+","+school_main.getString("location")+","+school_main.getString("city"));
+                 
+                 }
                  String description = school_main.getString("school_introduction");
                  
                  if(description.length() > 50){
