@@ -336,6 +336,25 @@ font-weight:400;
 	vertical-align: middle;
   margin-bottom:0.25em;
 }
+
+
+.vschoolProfilePic{
+ border:1px solid #fff;
+	 background:#fff;
+	 width:120px;
+	 height:120px;
+	 line-height:120px;
+	 margin:2px auto;
+	text-align:center;
+}
+
+ .vschoolProfilePic img{
+	 width:100%;
+	 height:auto;
+	vertical-align: middle;
+  margin-bottom:0.25em;
+}
+
 .schoolProfileInfo{
   padding-top:10px;
   padding-bottom:10px;
@@ -487,17 +506,61 @@ font-weight:400;
     padding:0;
     margin:0;
     color:#00b7c3;
+    cursor: pointer;
 }
 
 .map_body{
     padding:2px;
     margin:0px;
+     cursor: pointer;
 }
 
 .schoolMapView{
     display:none;
-    position:relative;
+    position:absolute;
     right:0;
     bottom:0;
-    width:30%;
+    width:28%;
+    padding:0px;
+    margin:0px;
+}
+
+.schoolMapView .schoolResults{
+    
+    padding:0px;
+}
+.schoolMapView .panel{
+    margin-bottom:0px;
+}
+.schoolMapView .panel-body{
+    background:rgba(0, 0, 0, 0) url("../images/testimonials.jpg") repeat fixed center center;
+    padding:4px;
+     
+}
+
+.schoolMapView .schoolProfileRating{
+    padding-left:10px;
+}
+
+.schoolMapView .schoolProfileSummary{
+    background:#fff;
+    padding:8px 4px;
+    margin-top:0px;
+}
+.closeView{
+    background:#666;
+    color:#fff;
+    position:relative;
+    top:40px;
+    left:-40px;
+    padding:4px;
+    margin:0;
+    display:inline-block;
+     
+  
+    height:40px;
+    width:40px;
+    text-align: center;
+    cursor:pointer;
+    
 }

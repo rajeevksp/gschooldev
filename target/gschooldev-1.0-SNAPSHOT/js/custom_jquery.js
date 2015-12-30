@@ -322,9 +322,10 @@ initialize();
 }();
 
 
-function setStateGet(url,datas){
+function setStateGet(id,url,datas){
 
     rul=url; 
+    result_html = "";
 		$htmlObj=$.ajax({
 		 type:"GET",
 		url:rul,
@@ -332,11 +333,18 @@ function setStateGet(url,datas){
 	    dataType:"html",
 		data: datas,
         cache: false,
+        before: function(){
+            $("#"+id).html("Loading...");  
+        },
 		
 		success: function(result) {
 			           // $('#focusedInput').tokenfield('setTokens', 'blue,red,white');
+                                  $("#"+id).html(result);
 				 }
 		 });
+                 
+                 
+               
 }
 
 function formNav(dir){
@@ -387,7 +395,12 @@ function validateMobile(mobile)
 }
 
  function viewSchool( schoolcode){
-     alert(schoolcode);
+     $("#schoolView").show(100);
+     
+     setStateGet('schoolView',"http://localhost:8080/gschooldev/webresources/ajaxprocess","school_code="+schoolcode);
+    
+     
+     $("#schoolView").animate({"margin-left": "28%", "margin-right": "0px"}, 600);
      //$('#hdnBtn_'+schoolcode).click();
  }
 var geocoder;

@@ -180,8 +180,7 @@ public class SchoolInfo  {
     public SchoolInfo() {
         
        FaceletContext faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
-         
-         
+           
         this.school_code = (String) faceletContext.getAttribute("school_code");
         
         db = new DbCon();

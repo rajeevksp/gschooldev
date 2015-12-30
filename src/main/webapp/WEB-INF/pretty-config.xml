@@ -20,4 +20,8 @@
 	</url-mapping>
 
 
+ <url-mapping id="mapsearch">
+		<pattern value="/mapresults.xhtml" />
+		<view-id value="faces/mapresults.xhtml" />
+	</url-mapping>
 </pretty-config>

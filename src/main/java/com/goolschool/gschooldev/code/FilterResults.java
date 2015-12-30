@@ -28,7 +28,7 @@ import org.json.simple.JSONObject;
 public class FilterResults implements Serializable{
     
     private String as_values_location;
-        private String standard;
+    private String standard;
     private int medium;
     private String fee_yealry;
     private String board;
