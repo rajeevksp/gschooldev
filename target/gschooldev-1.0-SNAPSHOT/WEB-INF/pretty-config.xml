@@ -24,4 +24,10 @@
 		<pattern value="/mapresults.xhtml" />
 		<view-id value="faces/mapresults.xhtml" />
 	</url-mapping>
+        
+        
+        <url-mapping id="compare">
+		<pattern value="/compare.xhtml" />
+		<view-id value="faces/compare.xhtml" />
+	</url-mapping>
 </pretty-config>

@@ -177,21 +177,113 @@ public class SchoolInfo  {
         this.district_pin = district_pin;
     }
 
-    public SchoolInfo() {
+  /*  public SchoolInfo() {
         
        FaceletContext faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
-           
         this.school_code = (String) faceletContext.getAttribute("school_code");
         
-        db = new DbCon();
+        if(school_code.length() > 0)
+        initSchool();
+        
+       
+    }
+    */
+    
+     public int getSchoolInfo(String code) {
+        
+             
+        this.school_code = (String) code.trim();
+        
+        if(code.length() > 0){
+        
+        initSchool();
+        
+        }
+        
+        return code.length();
+    }
+   
+     
+        public int getSponsoredSchoolInfo(String location,String comp_schools) {
+        
+             
+        
+         int rec = 0;
+        
+        if(location.length() > 0){
+        
+            db = new DbCon();
+        
+          
+        String[] parts = location.trim().split(",");
+        
+         String query_con = "";
+        
+        for(String part: parts){
+            if(part.length() > 0){
+                
+                if(query_con.length() > 0)
+                    query_con+= " OR ";
+                
+                query_con+= " (school_search_info.location LIKE '"+part+"%' OR school_search_info.school_name LIKE '"+part+"%')";
+            }
+        }
+        
+        
+        String cs_con = "";
+         String[] cs_str =   comp_schools.split(",");
+        for(int i=0;i<cs_str.length;i++){
+            cs_con+= "'"+cs_str[i]+"',";
+        }
+        
+        
+         //List sponsored schools first
+          String final_con = " school_search_info.school_code = school_main_info.school_code AND school_main_info.advertiser_rank < 10 AND school_search_info.entity_type = "+entity_type;
+        
+         if(query_con.length() > 0)
+                    final_con= " WHERE "+final_con+" AND ("+query_con+") AND (school_search_info.school_code NOT IN("+cs_con.substring(0,cs_con.length()-1)+"))";
+         
+            List<SchoolSearchInfo> school_d = SchoolSearchInfo.findBySQL("select school_search_info.*,school_search_info.school_code from school_search_info,school_main_info "+final_con+" ORDER BY advertiser_rank ASC,ranking DESC,user_ranking DESC LIMIT 0,1");
+          
+       //     System.out.print("select school_search_info.*,school_search_info.school_code from school_search_info,school_main_info "+final_con+" ORDER BY advertiser_rank ASC,ranking DESC,user_ranking DESC LIMIT 0,1");
+            if(school_d.size() > 0){
+               
+                SchoolSearchInfo school_data = school_d.get(0);
+                    
+                  this.school_code = school_data.getString("school_code");
+             
+                rec = 1;
+                
+                initSchool();
+                     
+            }
+       
+            
+            
+            db.closeDb();
+        
+        
+        }
+        
+        return rec;
+    }
+     
+    
+    public void initSchool(){
+        
+        
+         db = new DbCon();
         
         
         List<SchoolSearchInfo> school_search = SchoolSearchInfo.where("school_code=?", school_code);
         
+        
+      
+        
         if(school_search.size() > 0){
             SchoolSearchInfo school_search_data = school_search.get(0);
           
-            
+              this.school_code = school_search_data.getString("school_code");
             this.school_name = apiClass.toTitleCase(school_search_data.getString("school_name"));
               String b =  school_search_data.getString("affiliation_board_1") ;
                  
@@ -339,10 +431,8 @@ public class SchoolInfo  {
         
         
         db.closeDb();
+        
     }
-   
-    
-    
     
         
     public  SchoolFacilities  schoolFacilities(String school_code,String property){

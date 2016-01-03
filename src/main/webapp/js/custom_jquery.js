@@ -480,3 +480,44 @@ var geocoder;
  }
  
  
+function addToCompare(school_code,school_name,location){
+     
+     $(".compareHolder").slideDown('slow');
+     
+     cmp = $('#compare_schools').val();
+      
+      cnt = cmp.split(",");
+      
+      
+     if(cmp.search(school_code) == -1){
+      
+  
+     $('#compareHolder').append('<li>'+school_name+'<input type="hidden" class="compare_school_ids" value="'+school_code+'"/> <span class="remove" onClick="removeCompare($(this))">X</span>\n\
+<br /><span class="loc"><i class="fa fa-map-marker"></i> '+location+'</span></li>')
+ 
+    
+         school_ids = "";
+         $('#compareHolder li').each(function(index){
+             school_ids+=$(this).children('.compare_school_ids').val()+",";
+         });
+              $('#compare_schools').val(school_ids);
+    }
+    
+}
+
+function removeCompare(ref){
+    
+    
+    ref.parent("li").remove();
+    
+     school_ids = "";
+         $('#compareHolder li').each(function(index){
+             school_ids+=$(this).children('.compare_school_ids').val()+",";
+         });
+              $('#compare_schools').val(school_ids);
+              
+         if(school_ids == ""){
+             $(".compareHolder").slideUp('slow');
+         }   
+
+}

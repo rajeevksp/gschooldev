@@ -208,6 +208,12 @@ font-weight:400;
  
 }
 
+.schoolResults .schoolCompare{
+    position:absolute;
+    top:10px;
+    right:10%;
+}
+
 .panel-heading h2{
 	font-size:26px;
 	font-weight:400;	 
@@ -563,4 +569,43 @@ font-weight:400;
     text-align: center;
     cursor:pointer;
     
+}
+
+
+.compareHolder{
+    display:none;
+    
+    height:70px;
+    padding-left:2px;
+    padding-top:8px;    
+    margin:0px;
+    background: #fff;
+}
+
+.compareHolder ul{
+    padding:0;
+    margin:0;
+}
+
+.compareHolder ul li{
+    list-style-type: none;
+    float:left;
+    padding:2px 4px;
+    margin-right: 8px;
+    position:relative;
+    border:1px dotted #00b7c3;
+    text-align: left;
+    color:#00b7c3;
+   
+}
+.compareHolder ul li span.loc{
+    color:#666;
+}
+.compareHolder ul li span.remove{
+      
+     margin-left:2px;
+     margin-top:10px;
+     cursor:pointer;
+     color:#F55549;
+     
 }

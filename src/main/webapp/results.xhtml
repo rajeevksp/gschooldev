@@ -383,12 +383,28 @@ ul.as-selections li.as-original input {
       
          
          <div class="container">
-         
-             
-             
+          <div class="compareHolder" >
+                        <div class="col-sm-10">
+                            <ul id="compareHolder">
+
+
+                            </ul>
+                        </div>
+                        <div class="col-sm-2">
+                            <form jsf:id="compare"> 
+              <input type="hidden" id="compare_schools" name="compare_schools" value="" />
+              <input type="hidden"   name="search_location" value="#{basicSearch.as_values_location}" /> 
+              <h:commandLink class="btn btn-block btn-danger btn-raised"  action="#{filterResults.compareSchools()}"><i class="fa fa-expand"></i> Compare</h:commandLink></form>
+                        </div>       
+              
+          </div>
+              
          
              <div class="col-sm-8 col-md-8">
              
+                   
+             
+                 
              <div class="resultPagination">
                  <div class="pull-left">
                    <ul class="breadcrumb"  >
@@ -437,15 +453,21 @@ ul.as-selections li.as-original input {
                          
                          
                         <div class="panel-heading">
-                            
+                           
                             <h2 class="panel-title" ><form jsf:id="school#{school.school_code}"><h:commandLink action="#{filterResults.viewSchool(school.school_code)}" >#{school.school_name}</h:commandLink></form></h2>
                             
                             <h5><i class="fa fa-map-marker"></i> <span class="loc"> #{school.location}</span>,  #{school.city}</h5>
                             
+                            <div class="schoolCompare" title="Add to Compare" data-toggle="tooltip">
+                                <a class="btn btn-success btn-block btn-fab btn-raised " onclick="addToCompare('#{school.school_code}','#{school.school_name}','#{school.location}, #{school.city}')"><i class="fa fa-expand"></i></a>
+                                
+                            </div>
                             <div class="schoolRating">
+                               
                                 <a class="btn btn-warning btn-block btn-fab btn-raised " href="javascript:void(0)"><i class="fa fa-star"></i></a>
                             <p>#{school.rating}</p>
                             </div>
+                              
                         </div>
                         <div class="panel-body">
                                
@@ -673,7 +695,10 @@ ul.as-selections li.as-original input {
                             <h2 class="panel-title" ><form jsf:id="nschool#{school.school_code}"><h:commandLink action="#{filterResults.viewSchool(school.school_code)}" >#{school.school_name}</h:commandLink></form></h2>
                             
                             <h5><i class="fa fa-map-marker"></i> <span class="loc"> #{school.location}</span>,  #{school.city}</h5>
-                            
+                              <div class="schoolCompare" title="Add to Compare" data-toggle="tooltip">
+                                <a class="btn btn-success btn-block btn-fab btn-raised " onclick="addToCompare('#{school.school_code}','#{school.school_name}','#{school.location}, #{school.city}')"><i class="fa fa-expand"></i></a>
+                                
+                            </div>
                             <div class="schoolRating">
                                 <a class="btn btn-warning btn-block btn-raised  btn-fab" href="javascript:void(0)"><i class="fa fa-star"></i></a>
                             <p>#{school.rating}</p>

@@ -162,7 +162,7 @@
                  <ui:param name="school_code" value="#{filterResults.selected_school}" />    
                
                  
-                
+                 <ui:fragment rendered="#{schoolInfo.getSchoolInfo(filterResults.selected_school) > 0}" >
                  
              <div class="panel panel-primary"  >
                         <div class="panel-heading">
@@ -276,11 +276,8 @@
                                       
                         </div>
                     </div>
-                    
-           
-                
-                
-                
+                         
+                     
                 <div class="row ">
                 
                   <div class="col-sm-3">
@@ -841,7 +838,7 @@
                 
                 </div>
                 
-                
+                 </ui:fragment>
                 
          <div style="clear:both"></div>
          <div class=" similarSchools featuredSchools">

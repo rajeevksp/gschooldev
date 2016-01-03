@@ -105,7 +105,7 @@ public class Schools {
          List<SearchResults> scd =  new ArrayList<>();
     
          String scodes = "";
-         //Change this condition for advertiser_rank
+          
         String query_con = "";
         
         for(String part: parts){
